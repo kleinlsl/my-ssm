@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tujia.myssm.dao.bi.BiCityCashBackDao">
+    <resultMap id="AllColumnMap" type="com.tujia.myssm.bean.CityCashBack">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="date" jdbcType="DATE" property="date"/>
+        <result column="city_id" jdbcType="BIGINT" property="cityId"/>
+        <result column="amount" jdbcType="INTEGER" property="amount"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="all_column">
+        `date`,
+        `city_id`,
+        `amount`,
+    </sql>
+
+    <select id="selectToDay" resultMap="AllColumnMap">
+        select
+        <include refid="all_column"/>
+        from `city_cash_back`
+        where TO_DAYS(`date`) = TO_DAYS(NOW())
+    </select>
+</mapper>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tujia.myssm.dao.ActivityParticipantDao">
+  <resultMap id="BaseResultMap" type="com.tujia.myssm.bean.ActivityParticipant">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="activity_code" jdbcType="VARCHAR" property="activityCode" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+<!--    <result column="unit_ids" jdbcType="VARCHAR" property="unitIds" />-->
+    <result column="md5" jdbcType="VARCHAR" property="md5" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tujia.myssm.bean.ActivityParticipant">
+    <result column="data" jdbcType="BLOB" property="data" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, activity_code, `status`, unit_ids, md5, create_time, version
+  </sql>
+  <sql id="Blob_Column_List">
+    `data`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from activity_participant
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByMd5" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from activity_participant
+    where md5=#{md5}
+  </select>
+
+  <select id="selectByActivityCode" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Blob_Column_List"/>
+    from activity_participant
+    where activity_code=#{activityCode}
+  </select>
+  <select id="selectMaxVersionByActivityCode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from activity_participant
+    where activity_code=#{activityCode}
+    order by version desc limit 1
+  </select>
+  <select id="select" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List"/>,
+    <include refid="Blob_Column_List"/>
+    from activity_participant
+    <where>
+      status in (1,2)
+      <if test="pojo.id !=null">and id = #{pojo.id}</if>
+      <if test="pojo.activityCode !=null">and activity_code = #{pojo.activityCode}</if>
+      <if test="pojo.status >0">and status = #{pojo.status}</if>
+      <if test="pojo.md5 !=null">and md5 = #{pojo.md5}</if>
+      <if test="pojo.version>0 ">and version = #{pojo.version}</if>
+    </where>
+  </select>
+  <select id="selectMaxVersionByActivityCodeWithBLOBs" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List"/>,
+    <include refid="Blob_Column_List"/>
+    from activity_participant
+    where activity_code=#{activityCode}
+    order by version desc limit 1
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from activity_participant
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByActivityCodeAndVersion">
+    delete
+    from activity_participant
+    where activity_code=#{activityCode} and version=#{version}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tujia.myssm.bean.ActivityParticipant" useGeneratedKeys="true">
+    insert into activity_participant (activity_code, `status`, unit_ids,
+      md5, create_time, version,
+      `data`)
+    values (#{activityCode,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{unitIds,jdbcType=VARCHAR},
+      #{md5,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER},
+      #{data,jdbcType=BLOB})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.tujia.myssm.bean.ActivityParticipant" useGeneratedKeys="true">
+    insert into activity_participant
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="activityCode != null">activity_code,</if>
+      <if test="unitIds != null">unit_ids,</if>
+      <if test="md5 != null">md5,</if>
+      <if test="version != null">version,</if>
+      <if test="data != null">`data`,</if>
+        `status`,
+        create_time
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="activityCode != null">
+        #{activityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="unitIds != null">
+        #{unitIds,jdbcType=VARCHAR},
+      </if>
+      <if test="md5 != null">
+        #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="data != null">
+        #{data,jdbcType=BLOB},
+      </if>
+      1,
+      now()
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" >
+    update activity_participant
+    <set>
+      <if test="pojo.activityCode != null">
+        activity_code = #{pojo.activityCode},
+      </if>
+      <if test="pojo.status != null">
+        `status` = #{pojo.status},
+      </if>
+      <if test="pojo.unitIds != null">
+        unit_ids = #{pojo.unitIds},
+      </if>
+      <if test="pojo.md5 != null">
+        md5 = #{pojo.md5},
+      </if>
+      <if test="pojo.version != null">
+        version = #{pojo.version},
+      </if>
+      <if test="pojo.data != null">
+        `data` = #{pojo.data},
+      </if>
+    </set>
+    where id = #{pojo.id}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tujia.myssm.bean.ActivityParticipant">
+    update activity_participant
+    set activity_code = #{activityCode,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=TINYINT},
+      unit_ids = #{unitIds,jdbcType=VARCHAR},
+      md5 = #{md5,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER},
+      `data` = #{data,jdbcType=BLOB}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tujia.myssm.bean.ActivityParticipant">
+    update activity_participant
+    set activity_code = #{activityCode,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=TINYINT},
+      unit_ids = #{unitIds,jdbcType=VARCHAR},
+      md5 = #{md5,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateStatusBatchByIds">
+    update activity_participant
+    <set>
+      status = #{status},
+    </set>
+    where id in
+    <foreach collection="ids" item="id" index="index" separator="," open="(" close=")">
+      #{id}
+    </foreach>
+  </update>
+</mapper>
