@@ -133,10 +133,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!--        <dependency>-->
-        <!--            <groupId></groupId>-->
-        <!--            <artifactId></artifactId>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -179,48 +175,6 @@
             <artifactId>jackson-annotations</artifactId>
             <version>2.9.7</version>
         </dependency>
-<!--        &lt;!&ndash;Q TC start &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.qunar.db</groupId>-->
-<!--            <artifactId>db-datasource</artifactId>-->
-<!--            <version>2.0.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.qunar.db</groupId>-->
-<!--            <artifactId>dbaccess</artifactId>-->
-<!--            <version>4.0.3</version>-->
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>disruptor</artifactId>-->
-<!--                    <groupId>com.lmax</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>common-annotation</artifactId>-->
-<!--                    <groupId>qunar.common</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>common-api</artifactId>-->
-<!--                    <groupId>qunar.common</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>common-lang</artifactId>-->
-<!--                    <groupId>qunar.common</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>qconfig-client</artifactId>-->
-<!--                    <groupId>qunar.tc.qconfig</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>tc-internal-shaded-guava</artifactId>-->
-<!--                    <groupId>qunar.tc.internal</groupId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>tc-internal-shaded-trans</artifactId>-->
-<!--                    <groupId>qunar.tc.internal</groupId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
-<!--        </dependency>-->
-<!--        &lt;!&ndash;Q TC end &ndash;&gt;-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>

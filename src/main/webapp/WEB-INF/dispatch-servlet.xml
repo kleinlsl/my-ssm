@@ -30,16 +30,6 @@
         <mvc:mapping path="/**" allowed-origins="*" allowed-methods="*" allowed-headers="*" allow-credentials="false"
                      max-age="3600"/>
     </mvc:cors>
-    <!--多个拦截器,顺序执行 -->
-    <!--    <mvc:interceptors>-->
-    <!--        <mvc:interceptor>-->
-    <!--            <mvc:mapping path="/**"/>-->
-    <!--            <mvc:exclude-mapping path="/healthcheck.html"/>-->
-    <!--            <mvc:exclude-mapping path="/alive.html"/>-->
-    <!--            <bean class="com.tujia.search.web.interceptors.PostRequestForwardInterceptor"></bean>-->
-    <!--        </mvc:interceptor>-->
-    <!--    </mvc:interceptors>-->
 
-    <!-- 默认servlet-->
     <mvc:default-servlet-handler/>
 </beans>
