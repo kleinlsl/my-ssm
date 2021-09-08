@@ -1,7 +1,6 @@
 package com.tujia.myssm.executor;
 
 import com.google.common.base.Preconditions;
-import com.tujia.common.focus.TraceHelper;
 import org.apache.commons.collections.CollectionUtils;
 
 import java.util.Collection;
@@ -50,7 +49,7 @@ public interface MonitorExecutorService extends ExecutorService {
     public static final class TraceWrapper {
         static MonitorExecutorService withMonitor(ThreadPoolExecutor e) {
             Preconditions.checkNotNull(e);
-            ExecutorService tWrappedExecutor = TraceHelper.wrap(e);
+            ExecutorService tWrappedExecutor = e;
             return new MonitorExecutorService() {
                 @Override
                 public int getCorePoolSize() {
