@@ -12,9 +12,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
         locations = {
-                "classpath:mybatis-conf/mybatis-config.xml",
-                "classpath:spring/applicationContext.xml",
-                "classpath:spring/springmvc-config.xml"
+                "classpath:mybatis-config.xml",
+                "classpath:spring-config.xml"
         }
 )
 @WebAppConfiguration("web")

@@ -11,22 +11,34 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd" default-lazy-init="false">
 
     <context:property-placeholder location="classpath:config.properties" file-encoding="UTF-8"/>
-    <mvc:annotation-driven />
+    <mvc:annotation-driven/>
 
-    <context:component-scan base-package="com.tujia.price.promotion" use-default-filters="false">
+    <context:component-scan base-package="com.tujia.myssm" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
+    <mvc:annotation-driven/>
+
+    <!-- 配置swagger资源不被拦截 -->
+    <mvc:resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"/>
+    <mvc:resources location="classpath:/META-INF/resources/webjars/" mapping="/webjars/**"/>
+
+    <!--配置跨域访问-->
+    <mvc:cors>
+        <mvc:mapping path="/**" allowed-origins="*" allowed-methods="*" allowed-headers="*" allow-credentials="false"
+                     max-age="3600"/>
+    </mvc:cors>
     <!--多个拦截器,顺序执行 -->
-<!--    <mvc:interceptors>-->
-<!--        <mvc:interceptor>-->
-<!--            <mvc:mapping path="/**"/>-->
-<!--            <mvc:exclude-mapping path="/healthcheck.html"/>-->
-<!--            <mvc:exclude-mapping path="/alive.html"/>-->
-<!--            <bean class="com.tujia.search.web.interceptors.PostRequestForwardInterceptor"></bean>-->
-<!--        </mvc:interceptor>-->
-<!--    </mvc:interceptors>-->
+    <!--    <mvc:interceptors>-->
+    <!--        <mvc:interceptor>-->
+    <!--            <mvc:mapping path="/**"/>-->
+    <!--            <mvc:exclude-mapping path="/healthcheck.html"/>-->
+    <!--            <mvc:exclude-mapping path="/alive.html"/>-->
+    <!--            <bean class="com.tujia.search.web.interceptors.PostRequestForwardInterceptor"></bean>-->
+    <!--        </mvc:interceptor>-->
+    <!--    </mvc:interceptors>-->
 
     <!-- 默认servlet-->
     <mvc:default-servlet-handler/>

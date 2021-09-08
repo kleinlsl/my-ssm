@@ -6,8 +6,5 @@
 
     <import resource="classpath:spring/spring-context.xml"/>
     <import resource="classpath:spring/spring-bean.xml"/>
-<!--    <import resource="classpath:spring/spring-dubbo.xml"/>-->
     <import resource="classpath:spring/spring-dataSource.xml"/>
-    <import resource="classpath:spring/spring-mvc.xml"/>
-<!--    <import resource="classpath:spring/spring-dubbo-consumer.xml"/>-->
 </beans>

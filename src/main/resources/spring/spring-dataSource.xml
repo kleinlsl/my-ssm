@@ -2,54 +2,54 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:annotation-config/>
     <context:property-placeholder location="classpath:jdbc.properties"
                                   file-encoding="UTF-8"/>
 
 
     <!-- 监控 -->
-<!--    <bean id="stat-filter" class="com.tujia.trading.promo.monitor.DbStatFilter"/>-->
+    <!--    <bean id="stat-filter" class="com.tujia.trading.promo.monitor.DbStatFilter"/>-->
 
     <bean id="wall-filter-config" class="com.alibaba.druid.wall.WallConfig" init-method="init">
-        <property name="dir" value="META-INF/druid/wall/mysql" />
-        <property name="selectWhereAlwayTrueCheck" value="false" />
-        <property name="selectHavingAlwayTrueCheck" value="false" />
+        <property name="dir" value="META-INF/druid/wall/mysql"/>
+        <property name="selectWhereAlwayTrueCheck" value="false"/>
+        <property name="selectHavingAlwayTrueCheck" value="false"/>
     </bean>
 
     <bean id="wall-filter" class="com.alibaba.druid.wall.WallFilter">
-        <property name="dbType" value="mysql" />
-        <property name="config" ref="wall-filter-config" />
+        <property name="dbType" value="mysql"/>
+        <property name="config" ref="wall-filter-config"/>
     </bean>
 
     <!--  userPromotion 数据库连接池-->
     <!-- 配置数据源 -->
-    <bean name="masterDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-        <property name="url" value="${master.com.tujia.top.url}" />
-        <property name="driverClassName" value="${jdbc.driverClassName}" />
-        <property name="username" value="${master.com.tujia.top.user}" />
-        <property name="password" value="${master.com.tujia.top.pwd}" />
+    <bean name="masterDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+        <property name="url" value="${master.com.tujia.top.url}"/>
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="username" value="${master.com.tujia.top.user}"/>
+        <property name="password" value="${master.com.tujia.top.pwd}"/>
         <!-- 初始化连接大小 -->
-        <property name="initialSize" value="0" />
+        <property name="initialSize" value="0"/>
         <!-- 连接池最大使用连接数量 -->
-        <property name="maxActive" value="${master.com.tujia.top.maxActive}" />
+        <property name="maxActive" value="${master.com.tujia.top.maxActive}"/>
         <!-- 连接池最小空闲 -->
-        <property name="minIdle" value="0" />
+        <property name="minIdle" value="0"/>
         <!-- 获取连接最大等待时间 -->
-        <property name="maxWait" value="${master.com.tujia.top.maxWait}" />
+        <property name="maxWait" value="${master.com.tujia.top.maxWait}"/>
 
         <property name="defaultAutoCommit" value="true"/>
-        <property name="validationQuery" value="select 1" />
-        <property name="testOnBorrow" value="true" />
-        <property name="testWhileIdle" value="true" />
+        <property name="validationQuery" value="select 1"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testWhileIdle" value="true"/>
         <!-- 开启Druid的监控统计功能 -->
         <property name="filters" value="log4j"/>
         <property name="proxyFilters">
             <list>
-<!--                <ref bean="stat-filter" />-->
-                <ref bean="wall-filter" />
+                <!--                <ref bean="stat-filter" />-->
+                <ref bean="wall-filter"/>
             </list>
         </property>
 
@@ -63,8 +63,8 @@
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="annotationClass" value="org.springframework.stereotype.Repository" />
-        <property name="basePackage" value="com.tujia.myssm.dao" />
+        <property name="annotationClass" value="org.springframework.stereotype.Repository"/>
+        <property name="basePackage" value="com.tujia.myssm.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
@@ -74,30 +74,31 @@
 
     <!--  userPromotion Bi 数据库连接池-->
     <!-- 配置BI主数据源 -->
-    <bean name="masterBiDataSourceMaster" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-        <property name="url" value="${master.bi.com.tujia.top.url}" />
-        <property name="driverClassName" value="${jdbc.driverClassName}" />
-        <property name="username" value="${master.bi.com.tujia.top.user}" />
-        <property name="password" value="${master.bi.com.tujia.top.pwd}" />
+    <bean name="masterBiDataSourceMaster" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+        <property name="url" value="${master.bi.com.tujia.top.url}"/>
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="username" value="${master.bi.com.tujia.top.user}"/>
+        <property name="password" value="${master.bi.com.tujia.top.pwd}"/>
         <!-- 初始化连接大小 -->
-        <property name="initialSize" value="0" />
+        <property name="initialSize" value="0"/>
         <!-- 连接池最大使用连接数量 -->
-        <property name="maxActive" value="${master.bi.com.tujia.top.maxActive}" />
+        <property name="maxActive" value="${master.bi.com.tujia.top.maxActive}"/>
         <!-- 连接池最小空闲 -->
-        <property name="minIdle" value="0" />
+        <property name="minIdle" value="0"/>
         <!-- 获取连接最大等待时间 -->
-        <property name="maxWait" value="${master.bi.com.tujia.top.maxWait}" />
+        <property name="maxWait" value="${master.bi.com.tujia.top.maxWait}"/>
 
         <property name="defaultAutoCommit" value="true"/>
-        <property name="validationQuery" value="select 1" />
-        <property name="testOnBorrow" value="true" />
-        <property name="testWhileIdle" value="true" />
+        <property name="validationQuery" value="select 1"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testWhileIdle" value="true"/>
         <!-- 开启Druid的监控统计功能 -->
         <property name="filters" value="log4j"/>
         <property name="proxyFilters">
             <list>
-<!--                <ref bean="stat-filter" />-->
-                <ref bean="wall-filter" />
+                <!--                <ref bean="stat-filter" />-->
+                <ref bean="wall-filter"/>
             </list>
         </property>
     </bean>

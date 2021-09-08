@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tujia.myssm.dao.master.WxDrainageDetailMapper">
+    <resultMap id="AllColumnMap" type="com.tujia.myssm.bean.wx.WxDrainageDetail">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="member_id" jdbcType="BIGINT" property="memberId"/>
+        <result column="promo_code" jdbcType="VARCHAR" property="promoCode"/>
+        <result column="activity_channel_id" jdbcType="INTEGER" property="activityChannelId"/>
+        <result column="activity_code" jdbcType="VARCHAR" property="activityCode"/>
+        <result column="receive" jdbcType="INTEGER" property="receive"/>
+        <result column="from_time" jdbcType="TIMESTAMP" property="fromTime"/>
+        <result column="to_time" jdbcType="TIMESTAMP" property="toTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="all_column">
+        `id`,
+        `member_id`,
+        `promo_code`,
+        `activity_channel_id`,
+        `activity_code`,
+        `receive`,
+        `from_time`,
+        `to_time`,
+        `create_time`,
+        `update_time`
+    </sql>
+    <insert id="saveOrUpdate">
+        INSERT INTO `wx_drainage_detail`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.memberId > 0">`member_id`,</if>
+            <if test="pojo.promoCode != null">`promo_code`,</if>
+            <if test="pojo.activityChannelId > 0">`activity_channel_id`,</if>
+            <if test="pojo.activityCode !=null ">`activity_code`,</if>
+            <if test="pojo.receive > 0">`receive`,</if>
+            <if test="pojo.fromTime != null">`from_time`,</if>
+            <if test="pojo.toTime != null">`to_time`,</if>
+            `create_time`,
+            `update_time`
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.memberId > 0">#{pojo.memberId},</if>
+            <if test="pojo.promoCode != null">#{pojo.promoCode},</if>
+            <if test="pojo.activityChannelId > 0">#{pojo.activityChannelId},</if>
+            <if test="pojo.activityCode !=null ">#{pojo.activityCode},</if>
+            <if test="pojo.receive > 0">#{pojo.receive},</if>
+            <if test="pojo.fromTime != null">#{pojo.fromTime},</if>
+            <if test="pojo.toTime != null">#{pojo.toTime},</if>
+            now(),
+            now()
+        </trim>
+        ON DUPLICATE KEY UPDATE
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.memberId > 0">`member_id` = #{pojo.memberId},</if>
+            <if test="pojo.promoCode != null">`promo_code` = #{pojo.promoCode},</if>
+            <if test="pojo.activityChannelId > 0">`activity_channel_id` = #{pojo.activityChannelId},</if>
+            <if test="pojo.activityCode !=null ">`activity_code` = #{pojo.activityCode},</if>
+            <if test="pojo.receive > 0">`receive` = #{pojo.receive},</if>
+            <if test="pojo.fromTime != null">`from_time` = #{pojo.fromTime},</if>
+            <if test="pojo.toTime != null">`to_time` = #{pojo.toTime},</if>
+        </trim>
+    </insert>
+    <select id="selectByActivityCodes" resultMap="AllColumnMap">
+        select
+        <include refid="all_column"/>
+        from `wx_drainage_detail`
+        where `activity_code` in
+        <foreach collection="activityCodes" item="activityCode" index="index" separator="," open="(" close=")">
+            #{activityCodes}
+        </foreach>
+    </select>
+
+</mapper>

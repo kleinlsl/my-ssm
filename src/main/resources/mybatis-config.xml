@@ -10,9 +10,5 @@
         <setting name="defaultExecutorType" value="REUSE"/>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
-    
-<!--    <typeHandlers>-->
-<!--        <typeHandler handler="com.tujia.price.promotion.common.db.handlers.RuleHandler"/>-->
-<!--    </typeHandlers>-->
 
 </configuration>
