@@ -159,6 +159,12 @@
             <groupId>com.tujia.framework</groupId>
             <artifactId>framework-common</artifactId>
             <version>1.5.6</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>mybatis</artifactId>
+                    <groupId>org.mybatis</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

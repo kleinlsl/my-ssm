@@ -1,6 +1,5 @@
-package com.tujia.myssm.dao;
+package com.tujia.myssm.dao.master;
 
-import com.alibaba.excel.util.DateUtils;
 import com.tujia.myssm.BaseTest;
 import com.tujia.myssm.bean.CityCashBack;
 import org.apache.commons.lang.time.DateFormatUtils;
@@ -8,11 +7,10 @@ import org.junit.Test;
 
 import javax.annotation.Resource;
 
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import com.tujia.myssm.dao.master.CityCashBackDao;
 
 /**
  * @author: songlinl
@@ -44,7 +42,6 @@ public class CityCashBackDaoTest extends BaseTest {
 
         int count = cityCashBackDao.save(cityCashBack);
         System.out.println("count = " + count);
-        ;
     }
 
     @Test

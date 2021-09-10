@@ -1,13 +1,13 @@
-package com.tujia.myssm.dao;
+package com.tujia.myssm.dao.master;
 
 import com.google.common.base.Joiner;
 import com.tujia.myssm.BaseTest;
 import com.tujia.myssm.bean.ActivityParticipant;
+import com.tujia.myssm.dao.master.ActivityParticipantDao;
 import org.junit.Test;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
-import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 

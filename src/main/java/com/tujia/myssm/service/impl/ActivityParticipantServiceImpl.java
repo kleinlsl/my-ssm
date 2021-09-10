@@ -1,12 +1,11 @@
 package com.tujia.myssm.service.impl;
 
 import com.tujia.myssm.bean.ActivityParticipant;
-import com.tujia.myssm.dao.ActivityParticipantDao;
+import com.tujia.myssm.dao.master.ActivityParticipantDao;
 import com.tujia.myssm.service.ActivityParticipantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;

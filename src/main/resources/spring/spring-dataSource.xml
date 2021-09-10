@@ -59,12 +59,11 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="masterDataSource"/>
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
-        <property name="mapperLocations" value="classpath*:mapper/*.xml"/>
+        <property name="mapperLocations" value="classpath*:mapper/master/*.xml"/>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="annotationClass" value="org.springframework.stereotype.Repository"/>
-        <property name="basePackage" value="com.tujia.myssm.dao"/>
+        <property name="basePackage" value="com.tujia.myssm.dao.master"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
@@ -111,7 +110,6 @@
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="annotationClass" value="org.springframework.stereotype.Repository"/>
         <property name="basePackage" value="com.tujia.myssm.dao.bi"/>
         <property name="sqlSessionFactoryBeanName" value="biSqlSessionFactory"/>
     </bean>

@@ -1,7 +1,7 @@
 package com.tujia.myssm.service.impl;
 
 import com.tujia.myssm.bean.CityCashBack;
-import com.tujia.myssm.dao.CityCashBackDao;
+import com.tujia.myssm.dao.master.CityCashBackDao;
 import com.tujia.myssm.service.CityCashBackService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

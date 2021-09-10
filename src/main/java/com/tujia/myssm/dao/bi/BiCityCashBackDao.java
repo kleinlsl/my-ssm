@@ -11,7 +11,6 @@ import java.util.List;
  * @author: songlinl
  * @create: 2021/08/06 14:43
  */
-@Repository
 public interface BiCityCashBackDao {
     /**
      * 查询

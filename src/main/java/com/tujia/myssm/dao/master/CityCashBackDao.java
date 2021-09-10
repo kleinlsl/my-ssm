@@ -1,4 +1,4 @@
-package com.tujia.myssm.dao;
+package com.tujia.myssm.dao.master;
 
 import com.tujia.myssm.bean.CityCashBack;
 import org.apache.ibatis.annotations.Param;
@@ -11,7 +11,6 @@ import java.util.List;
  * @author: songlinl
  * @create: 2021/08/06 14:43
  */
-@Repository
 public interface CityCashBackDao {
     /**
      *
