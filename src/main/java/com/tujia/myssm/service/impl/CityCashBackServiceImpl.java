@@ -1,13 +1,14 @@
 package com.tujia.myssm.service.impl;
 
-import com.tujia.myssm.bean.CityCashBack;
-import com.tujia.myssm.dao.master.CityCashBackDao;
-import com.tujia.myssm.service.CityCashBackService;
+import java.util.List;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
-import java.util.List;
+import com.tujia.myssm.bean.CityCashBack;
+import com.tujia.myssm.common.utils.ApplicationContextUtil;
+import com.tujia.myssm.dao.master.CityCashBackDao;
+import com.tujia.myssm.service.CityCashBackService;
+import com.tujia.myssm.service.CommonService;
 
 /**
  * @author: songlinl
@@ -17,9 +18,11 @@ import java.util.List;
 public class CityCashBackServiceImpl implements CityCashBackService {
     @Resource
     private CityCashBackDao cityCashBackDao;
+
     @Override
     public List<CityCashBack> query(CityCashBack cashBack) {
-        if (cashBack==null){
+        CommonService commonService = ApplicationContextUtil.getBean(CommonService.class);
+        if (cashBack == null) {
             return null;
         }
         return cityCashBackDao.select(cashBack);

@@ -1,7 +1,6 @@
 package com.tujia.myssm.common.db.interceptor;
 
 import java.util.Properties;
-import java.util.concurrent.Executors;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -13,9 +12,9 @@ import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.tujia.myssm.common.utils.ApplicationContextUtil;
 import com.tujia.myssm.common.utils.JsonUtils;
+import com.tujia.myssm.service.CommonService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -31,10 +30,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ErrorSqlInterceptor implements Interceptor {
     public boolean printSql = true;
+    //    private static CommonService commonService = ApplicationContextUtil.getBean(CommonService.class);
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         String sql = null;
+        //        commonService.sayHello();
         MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
         Object parameter = invocation.getArgs()[1];
         try {
