@@ -1,15 +1,14 @@
 package com.tujia.myssm.service.impl;
 
-import com.tujia.myssm.bean.ActivityParticipant;
-import com.tujia.myssm.dao.master.ActivityParticipantDao;
-import com.tujia.myssm.service.ActivityParticipantService;
+import java.util.List;
+import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
-import javax.annotation.Resource;
-import java.util.List;
+import com.tujia.myssm.bean.ActivityParticipant;
+import com.tujia.myssm.dao.master.ActivityParticipantDao;
+import com.tujia.myssm.service.ActivityParticipantService;
 
 /**
  * @author: songlinl
@@ -24,17 +23,17 @@ public class ActivityParticipantServiceImpl implements ActivityParticipantServic
     @Resource
     private ActivityParticipantDao activityParticipantDao;
 
-//    @Override
-//    public APIResponse<String> saveUpload(List<Long> unitIds) {
-//        ActivityParticipant activityParticipant = buildActivityParticipant(unitIds);
-//        int count = activityParticipantDao.insertSelective(activityParticipant);
-//        if (count > 0) {
-//            TMonitor.recordOne("ActivityParticipantServiceImpl.saveUploadSuccess");
-//            return APIResponse.returnSuccess(activityParticipant.getMd5());
-//        }
-//        TMonitor.recordOne("ActivityParticipantServiceImpl.saveUploadFail");
-//        return APIResponse.returnFail(EnumErrorCode.Start.getCode(), "保存失败");
-//    }
+    //    @Override
+    //    public APIResponse<String> saveUpload(List<Long> unitIds) {
+    //        ActivityParticipant activityParticipant = buildActivityParticipant(unitIds);
+    //        int count = activityParticipantDao.insertSelective(activityParticipant);
+    //        if (count > 0) {
+    //            TMonitor.recordOne("ActivityParticipantServiceImpl.saveUploadSuccess");
+    //            return APIResponse.returnSuccess(activityParticipant.getMd5());
+    //        }
+    //        TMonitor.recordOne("ActivityParticipantServiceImpl.saveUploadFail");
+    //        return APIResponse.returnFail(EnumErrorCode.Start.getCode(), "保存失败");
+    //    }
 
     @Override
     public int add(ActivityParticipant pojo) {
@@ -60,9 +59,11 @@ public class ActivityParticipantServiceImpl implements ActivityParticipantServic
         if (maxVersion != null) {
             // 更新版本号 删除老版本
             activityParticipant.setVersion(maxVersion.getVersion() + 1);
-            if (activityParticipant.getVersion() - NUMBER_OF_VERSIONS > 0){
-                int count = activityParticipantDao.deleteByActivityCodeAndVersion(activityCode, activityParticipant.getVersion() - NUMBER_OF_VERSIONS);
-                logger.info("ActivityParticipantServiceImpl.updateActivityCodeAndVersion,删除老版本,activityCode：{},version:{},res:{}",
+            if (activityParticipant.getVersion() - NUMBER_OF_VERSIONS > 0) {
+                int count = activityParticipantDao.deleteByActivityCodeAndVersion(activityCode,
+                        activityParticipant.getVersion() - NUMBER_OF_VERSIONS);
+                logger.info(
+                        "ActivityParticipantServiceImpl.updateActivityCodeAndVersion,删除老版本,activityCode：{},version:{},res:{}",
                         activityCode, activityParticipant.getVersion() - NUMBER_OF_VERSIONS, count > 0);
             }
         }
@@ -72,7 +73,7 @@ public class ActivityParticipantServiceImpl implements ActivityParticipantServic
 
     @Override
     public ActivityParticipant queryMaxVersionByActivityCode(String activityCode) {
-        if (StringUtils.isEmpty(activityCode)){
+        if (StringUtils.isEmpty(activityCode)) {
             return null;
         }
         return activityParticipantDao.selectMaxVersionByActivityCodeWithBLOBs(activityCode);
@@ -80,25 +81,25 @@ public class ActivityParticipantServiceImpl implements ActivityParticipantServic
 
     @Override
     public List<ActivityParticipant> queryByActivityCode(String activityCode) {
-        if (StringUtils.isEmpty(activityCode)){
+        if (StringUtils.isEmpty(activityCode)) {
             return null;
         }
         return activityParticipantDao.selectByActivityCode(activityCode);
     }
 
-//    private ActivityParticipant buildActivityParticipant(List<Long> unitIds) {
-//        ActivityParticipant activityParticipant = new ActivityParticipant();
-//
-//        byte[] unitIdBytes = RoaringMapUtils.serializeToBytes(unitIds);
-//        String md5 = DigestUtils.md5DigestAsHex(unitIdBytes) + "_" + System.currentTimeMillis();
-//
-//        activityParticipant.setData(unitIdBytes);
-//        activityParticipant.setVersion(1);
-//        activityParticipant.setData(unitIdBytes);
-//        activityParticipant.setMd5(md5);
-//        activityParticipant.setStatus(1);
-//
-//        return activityParticipant;
-//    }
+    //    private ActivityParticipant buildActivityParticipant(List<Long> unitIds) {
+    //        ActivityParticipant activityParticipant = new ActivityParticipant();
+    //
+    //        byte[] unitIdBytes = RoaringMapUtils.serializeToBytes(unitIds);
+    //        String md5 = DigestUtils.md5DigestAsHex(unitIdBytes) + "_" + System.currentTimeMillis();
+    //
+    //        activityParticipant.setData(unitIdBytes);
+    //        activityParticipant.setVersion(1);
+    //        activityParticipant.setData(unitIdBytes);
+    //        activityParticipant.setMd5(md5);
+    //        activityParticipant.setStatus(1);
+    //
+    //        return activityParticipant;
+    //    }
 
 }
