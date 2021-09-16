@@ -1,26 +1,24 @@
 package com.tujia.myssm.base;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.Maps;
-import com.tujia.myssm.base.exception.BizException;
-import com.tujia.myssm.base.monitor.MRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Map;
+import com.google.common.base.Strings;
+import com.tujia.myssm.base.exception.BizException;
+import com.tujia.myssm.base.monitor.MRegistry;
 
 /**
- * @author bowen.ma created on 16/9/21.
- * @version $Id$
+ *
  */
 
 public abstract class BizTemplate<T> {
-    // TODO: 2021/9/8 高并发下会有冲突吗？
-    private static final Map<String, BizTemplate> factoryMap = Maps.newHashMap();
 
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
     protected MRegistry mRegistry;
+
+    public BizTemplate() {
+
+    }
 
     public BizTemplate(MRegistry mRegistry) {
         this.mRegistry = mRegistry;
@@ -43,6 +41,7 @@ public abstract class BizTemplate<T> {
         long start = System.currentTimeMillis();
         try {
             checkParams();
+            logger.error("biz execute, key = {} ,desc={}", mRegistry.key(), mRegistry.desc());
             return process();
         } catch (BizException | IllegalArgumentException e) {
             onError(e);
@@ -58,19 +57,4 @@ public abstract class BizTemplate<T> {
         }
     }
 
-    /**
-     * 将匿名对象放入本地缓存中
-     *
-     * @return
-     */
-    public BizTemplate<T> intern() {
-        BizTemplate bizTemplate = this;
-        if (factoryMap.containsKey(mRegistry.key())) {
-            bizTemplate = factoryMap.get(mRegistry.key());
-        } else {
-            factoryMap.put(mRegistry.key(), this);
-        }
-        logger.info("[BizTemplate.intern] 处理了，{},{}", this, System.identityHashCode(this));
-        return bizTemplate;
-    }
 }
