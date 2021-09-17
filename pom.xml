@@ -186,17 +186,6 @@
             <artifactId>druid</artifactId>
             <version>1.1.3</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.tujia.tc</groupId>-->
-<!--            <artifactId>tc-common-web</artifactId>-->
-<!--            <version>1.0.7</version>-->
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <groupId>com.tujia.common</groupId>-->
-<!--                    <artifactId>focus-instrument-lib</artifactId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
-<!--        </dependency>-->
     </dependencies>
 
 
