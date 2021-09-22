@@ -1,10 +1,8 @@
 package com.tujia.myssm.dao.master;
 
-import com.tujia.myssm.bean.ActivityParticipant;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
+import com.tujia.myssm.api.model.ActivityParticipant;
 public interface ActivityParticipantDao {
     int deleteByPrimaryKey(@Param("id") Long id);
 

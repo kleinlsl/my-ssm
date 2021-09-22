@@ -1,11 +1,9 @@
-package com.tujia.myssm.bean;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
+package com.tujia.myssm.api.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 
 /**
  * @author: songlinl

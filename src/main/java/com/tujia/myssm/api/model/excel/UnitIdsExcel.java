@@ -1,14 +1,13 @@
-package com.tujia.myssm.bean.excel;
+package com.tujia.myssm.api.model.excel;
 
 /**
  * @author: songlinl
  * @create: 2021/08/03 16:49
  */
 
+import java.io.Serializable;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.metadata.BaseRowModel;
-
-import java.io.Serializable;
 
 public class UnitIdsExcel extends BaseRowModel implements Serializable {
     private static final long serialVersionUID = 8919456316743595940L;

@@ -1,27 +1,28 @@
-package com.tujia.myssm.controller;
+package com.tujia.myssm.web.controller;
 
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.tujia.framework.api.APIResponse;
-import com.tujia.framework.utility.StringUtils;
-import com.tujia.myssm.bean.ActivityParticipant;
-import com.tujia.myssm.bean.excel.UnitIdsExcel;
-import com.tujia.myssm.bean.excel.UnitIdsExcelDownload;
-import com.tujia.myssm.service.ActivityParticipantService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import static com.tujia.framework.cache.lruk.lru.LocalCache.logger;
+import com.tujia.framework.utility.StringUtils;
+import com.tujia.myssm.api.model.ActivityParticipant;
+import com.tujia.myssm.api.model.excel.UnitIdsExcel;
+import com.tujia.myssm.api.model.excel.UnitIdsExcelDownload;
+import com.tujia.myssm.service.ActivityParticipantService;
 
 /**
  * @author: songlinl

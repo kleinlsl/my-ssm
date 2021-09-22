@@ -1,11 +1,8 @@
-package com.tujia.myssm.bean.excel;
-
-import com.alibaba.excel.annotation.ExcelIgnore;
-import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
-import com.alibaba.excel.annotation.ExcelProperty;
-import lombok.Data;
+package com.tujia.myssm.api.model.excel;
 
 import java.io.Serializable;
+import com.alibaba.excel.annotation.ExcelProperty;
+import lombok.Data;
 
 /**
  * @author: songlinl

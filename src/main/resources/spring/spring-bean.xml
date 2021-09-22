@@ -20,7 +20,4 @@
         </property>
         <property name="maxInMemorySize" value="5000000"/>
     </bean>
-
-    <!-- 将SwaggerConfig配置类注入 -->
-    <bean class="com.tujia.myssm.config.SwaggerConfig"/>
 </beans>

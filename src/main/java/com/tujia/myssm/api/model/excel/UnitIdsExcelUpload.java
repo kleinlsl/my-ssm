@@ -1,4 +1,4 @@
-package com.tujia.myssm.bean.excel;
+package com.tujia.myssm.api.model.excel;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;

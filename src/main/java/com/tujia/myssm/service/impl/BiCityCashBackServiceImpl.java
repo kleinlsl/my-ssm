@@ -1,12 +1,11 @@
 package com.tujia.myssm.service.impl;
 
-import com.tujia.myssm.bean.CityCashBack;
+import java.util.List;
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
+import com.tujia.myssm.api.model.CityCashBack;
 import com.tujia.myssm.dao.bi.BiCityCashBackDao;
 import com.tujia.myssm.service.BiCityCashBackService;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author: songlinl

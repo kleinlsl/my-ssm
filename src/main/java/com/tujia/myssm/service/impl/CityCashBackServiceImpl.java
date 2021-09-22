@@ -4,7 +4,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.tujia.myssm.bean.CityCashBack;
+import com.tujia.myssm.api.model.CityCashBack;
 import com.tujia.myssm.common.utils.ApplicationContextUtil;
 import com.tujia.myssm.dao.master.CityCashBackDao;
 import com.tujia.myssm.service.CityCashBackService;

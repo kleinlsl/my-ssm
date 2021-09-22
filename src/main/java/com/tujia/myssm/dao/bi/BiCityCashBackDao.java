@@ -1,11 +1,7 @@
 package com.tujia.myssm.dao.bi;
 
-import com.tujia.myssm.bean.CityCashBack;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
-
-import java.util.Date;
 import java.util.List;
+import com.tujia.myssm.api.model.CityCashBack;
 
 /**
  * @author: songlinl

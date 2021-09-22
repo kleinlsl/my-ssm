@@ -1,8 +1,7 @@
-package com.tujia.myssm.bean;
+package com.tujia.myssm.api.model;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import lombok.Data;
 
 /**

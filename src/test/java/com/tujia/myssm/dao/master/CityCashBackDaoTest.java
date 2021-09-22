@@ -1,16 +1,12 @@
 package com.tujia.myssm.dao.master;
 
-import com.tujia.myssm.BaseTest;
-import com.tujia.myssm.bean.CityCashBack;
-import org.apache.commons.lang.time.DateFormatUtils;
-import org.junit.Test;
-
-import javax.annotation.Resource;
-
 import java.util.Date;
 import java.util.List;
-
-import com.tujia.myssm.dao.master.CityCashBackDao;
+import javax.annotation.Resource;
+import org.apache.commons.lang.time.DateFormatUtils;
+import org.junit.Test;
+import com.tujia.myssm.BaseTest;
+import com.tujia.myssm.api.model.CityCashBack;
 
 /**
  * @author: songlinl

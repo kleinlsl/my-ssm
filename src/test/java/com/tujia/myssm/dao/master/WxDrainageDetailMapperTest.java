@@ -1,10 +1,9 @@
 package com.tujia.myssm.dao.master;
 
-import com.tujia.myssm.BaseTest;
-import com.tujia.myssm.bean.wx.WxDrainageDetail;
-import org.junit.Test;
-
 import javax.annotation.Resource;
+import org.junit.Test;
+import com.tujia.myssm.BaseTest;
+import com.tujia.myssm.api.model.wx.WxDrainageDetail;
 
 
 /**

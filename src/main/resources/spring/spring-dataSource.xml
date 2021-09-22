@@ -7,11 +7,6 @@
     <context:annotation-config/>
     <context:property-placeholder location="classpath:jdbc.properties"
                                   file-encoding="UTF-8"/>
-
-
-    <!-- 监控 -->
-    <!--    <bean id="stat-filter" class="com.tujia.trading.promo.monitor.DbStatFilter"/>-->
-
     <bean id="wall-filter-config" class="com.alibaba.druid.wall.WallConfig" init-method="init">
         <property name="dir" value="META-INF/druid/wall/mysql"/>
         <property name="selectWhereAlwayTrueCheck" value="false"/>
@@ -23,7 +18,6 @@
         <property name="config" ref="wall-filter-config"/>
     </bean>
 
-    <!--  userPromotion 数据库连接池-->
     <!-- 配置数据源 -->
     <bean name="masterDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
           destroy-method="close">
@@ -48,7 +42,6 @@
         <property name="filters" value="log4j"/>
         <property name="proxyFilters">
             <list>
-                <!--                <ref bean="stat-filter" />-->
                 <ref bean="wall-filter"/>
             </list>
         </property>
@@ -71,7 +64,6 @@
         <constructor-arg ref="sqlSessionFactory"/>
     </bean>
 
-    <!--  userPromotion Bi 数据库连接池-->
     <!-- 配置BI主数据源 -->
     <bean name="masterBiDataSourceMaster" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
           destroy-method="close">
@@ -96,7 +88,6 @@
         <property name="filters" value="log4j"/>
         <property name="proxyFilters">
             <list>
-                <!--                <ref bean="stat-filter" />-->
                 <ref bean="wall-filter"/>
             </list>
         </property>

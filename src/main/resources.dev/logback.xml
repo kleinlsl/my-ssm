@@ -2,7 +2,7 @@
 <configuration debug="true" scan="true" scanPeriod="30 seconds">
 
     <property name="log.dir" value="${catalina.base}/logs" />
-    <property name="encoding" value="GBK"/>
+    <property name="encoding" value="UTF-8"/>
     <property name="normal-pattern"
               value="%d{yyyy-MM-dd.HH:mm:ss.SSS} %-5level TraceId[%X{traceId}] [%thread] [%logger{0}.%M:%L] - %msg%n" />
 ß

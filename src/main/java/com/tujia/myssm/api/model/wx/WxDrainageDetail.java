@@ -1,11 +1,10 @@
-package com.tujia.myssm.bean.wx;
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+package com.tujia.myssm.api.model.wx;
 
 import java.io.Serializable;
 import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author: songlinl

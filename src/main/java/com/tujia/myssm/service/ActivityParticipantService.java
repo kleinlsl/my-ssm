@@ -1,8 +1,7 @@
 package com.tujia.myssm.service;
 
-import com.tujia.myssm.bean.ActivityParticipant;
-
 import java.util.List;
+import com.tujia.myssm.api.model.ActivityParticipant;
 
 /**
  * @author: songlinl

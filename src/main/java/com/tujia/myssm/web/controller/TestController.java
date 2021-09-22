@@ -1,9 +1,9 @@
-package com.tujia.myssm.controller;
+package com.tujia.myssm.web.controller;
 
-import com.tujia.myssm.bean.excel.UnitIdsExcelDownload;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.tujia.myssm.api.model.excel.UnitIdsExcelDownload;
 
 /**
  * @author: songlinl

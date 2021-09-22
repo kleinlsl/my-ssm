@@ -1,12 +1,10 @@
 package com.tujia.myssm.dao.bi;
 
-import com.tujia.myssm.BaseTest;
-import com.tujia.myssm.bean.CityCashBack;
-import org.junit.Test;
-
-import javax.annotation.Resource;
-
 import java.util.List;
+import javax.annotation.Resource;
+import org.junit.Test;
+import com.tujia.myssm.BaseTest;
+import com.tujia.myssm.api.model.CityCashBack;
 
 
 /**

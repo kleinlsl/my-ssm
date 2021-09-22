@@ -1,9 +1,8 @@
 package com.tujia.myssm.dao.master;
 
-import com.tujia.myssm.bean.wx.WxDrainageDetail;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
+import com.tujia.myssm.api.model.wx.WxDrainageDetail;
 
 /**
  * @author: songlinl
