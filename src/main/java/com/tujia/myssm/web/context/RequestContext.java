@@ -1,5 +1,7 @@
 package com.tujia.myssm.web.context;
 
+import com.tujia.myssm.web.context.model.LoginInfo;
+
 /**
  * 请求上下文
  * @author: songlinl
@@ -13,6 +15,8 @@ public class RequestContext {
         }
     };
 
+    private LoginInfo loginInfo;
+
     public static RequestContext getThreadLocal() {
         return (RequestContext) threadLocal.get();
     }
@@ -23,5 +27,13 @@ public class RequestContext {
 
     public static void removeThreadLocal() {
         threadLocal.remove();
+    }
+
+    public LoginInfo getLoginInfo() {
+        return loginInfo;
+    }
+
+    public void setLoginInfo(LoginInfo loginInfo) {
+        this.loginInfo = loginInfo;
     }
 }

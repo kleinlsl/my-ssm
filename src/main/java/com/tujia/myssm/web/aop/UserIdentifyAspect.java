@@ -1,7 +1,10 @@
 package com.tujia.myssm.web.aop;
 
+import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -9,8 +12,11 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
+import com.tujia.myssm.web.context.RequestContext;
+import com.tujia.myssm.web.context.model.LoginInfo;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -31,6 +37,50 @@ public class UserIdentifyAspect {
     @Before("controllerAspect()")
     public void doBefore(JoinPoint joinPoint) {
         log.error("[UserIdentifyAspect.doBefore] ");
+        try {
+            log.info("UserIdentifyAspect.doBefore:{}.{}", getClassName(joinPoint), getMethodName(joinPoint));
+            RequestContext context = RequestContext.getThreadLocal();
+            UserIdentify userIdentify = getAnnotation(joinPoint);
+            if (userIdentify == null) {
+                return;
+            }
+            if (context == null) {
+                context = new RequestContext();
+                LoginInfo loginInfo = new LoginInfo();
+                loginInfo.setCreateTime(LocalDateTime.now());
+                context.setLoginInfo(loginInfo);
+                RequestContext.setThreadLocal(context);
+            }
+            if (userIdentify.mustLogin()) {
+                if (context.getLoginInfo() == null) {
+                    log.warn("UserIdentifyAspect.doBefore 用户未登录");
+                    throw new RuntimeException("");
+                }
+            }
+
+        } catch (Exception e) {
+            log.error("UserIdentifyAspect.doBefore:{}.{} 发生异常", getClassName(joinPoint), getMethodName(joinPoint), e);
+            RequestContext.removeThreadLocal();
+            throw new RuntimeException("未登录");
+        }
+    }
+
+    private UserIdentify getAnnotation(JoinPoint joinPoint) {
+        Signature signature = joinPoint.getSignature();
+        MethodSignature methodSignature = (MethodSignature) signature;
+        Method method = methodSignature.getMethod();
+        if (method != null) {
+            return method.getAnnotation(UserIdentify.class);
+        }
+        return null;
+    }
+
+    private String getMethodName(JoinPoint joinPoint) {
+        return joinPoint.getSignature().getName();
+    }
+
+    private String getClassName(JoinPoint joinPoint) {
+        return joinPoint.getTarget().getClass().getSimpleName();
     }
 
     @After("controllerAspect()")
