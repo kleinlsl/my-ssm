@@ -6,6 +6,7 @@ import com.tujia.myssm.base.BizTemplate;
 import com.tujia.myssm.base.BizTemplatePool;
 import com.tujia.myssm.base.exception.BizException;
 import com.tujia.myssm.base.monitor.Monitors;
+import com.tujia.myssm.web.aop.UserIdentify;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -68,5 +69,17 @@ public class BackDoorController {
                 return "成功了： " + this.hashCode();
             }
         }).execute();
+    }
+
+    @GetMapping("/userIdentify")
+    @UserIdentify(mustLogin = true)
+    public String userIdentify() {
+        return "success";
+    }
+
+    @GetMapping("/userIdentifyEx")
+    @UserIdentify(mustLogin = true)
+    public String userIdentifyEx() {
+        throw new RuntimeException("发生异常了");
     }
 }
