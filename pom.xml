@@ -211,24 +211,6 @@
             </properties>
         </profile>
         <profile>
-            <id>betafvt</id>
-            <properties>
-                <deploy.type>betafvt</deploy.type>
-            </properties>
-        </profile>
-        <profile>
-            <id>betat1</id>
-            <properties>
-                <deploy.type>betat1</deploy.type>
-            </properties>
-        </profile>
-        <profile>
-            <id>betat2</id>
-            <properties>
-                <deploy.type>betat2</deploy.type>
-            </properties>
-        </profile>
-        <profile>
             <id>prod</id>
             <properties>
                 <deploy.type>prod</deploy.type>

@@ -1,15 +1,15 @@
 package com.tujia.myssm.common.utils;
 
+import java.time.LocalDateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.tujia.myssm.common.utils.serializer.LocalDateTimeDeserializer;
+import com.tujia.myssm.common.utils.serializer.LocalDateTimeSerializer;
 
 /**
  * @author: songlinl
@@ -29,6 +29,12 @@ public final class JsonUtils {
         objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+        SimpleModule localDateTimeModel = new SimpleModule();
+        localDateTimeModel.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
+        localDateTimeModel.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
+
+        objectMapper.registerModule(localDateTimeModel);
     }
 
     public static <T> String tryToJson(T object) {
@@ -58,4 +64,8 @@ public final class JsonUtils {
         }
     }
 
+    public static void main(String[] args) {
+        String value = JsonUtils.toJson(LocalDateTime.now());
+        System.out.println("value = " + value);
+    }
 }
