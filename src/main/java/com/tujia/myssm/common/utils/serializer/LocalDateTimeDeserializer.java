@@ -2,7 +2,6 @@ package com.tujia.myssm.common.utils.serializer;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -20,7 +19,7 @@ public class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
             throws IOException, JsonProcessingException {
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
         String s = node.asText();
-        LocalDateTime parse = LocalDateTime.parse(s, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        LocalDateTime parse = LocalDateTime.parse(s, DateTimeFormatterConstant.FORMATTER_4Y2M2D_T_2H2M2S);
         return parse;
     }
 }

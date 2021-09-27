@@ -1,11 +1,14 @@
 package com.tujia.myssm.common.utils;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.tujia.myssm.common.utils.serializer.LocalDateTimeDeserializer;
@@ -64,8 +67,52 @@ public final class JsonUtils {
         }
     }
 
+    public static JsonNode readTree(String content) throws IOException {
+        JsonNode jsonNode = objectMapper.readTree(content);
+        return jsonNode;
+    }
+
+    public static JsonNode[] readArray(String content) throws IOException {
+        return readValue(content, new TypeReference<JsonNode[]>() {
+        });
+    }
+
+    public static <T> T readValue(String json, TypeReference<T> ref) {
+        try {
+            return objectMapper.readValue(json, ref);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static <T> T readValue(byte[] bytes, TypeReference<T> ref) {
+        try {
+            return objectMapper.readValue(bytes, ref);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static <T> T readValue(String json, Class<T> valueType) {
+        try {
+            return objectMapper.readValue(json, valueType);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static <T> T readValue(byte[] bytes, Class<T> valueType) {
+        try {
+            return objectMapper.readValue(bytes, valueType);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) {
         String value = JsonUtils.toJson(LocalDateTime.now());
         System.out.println("value = " + value);
+        LocalDateTime localDateTime = JsonUtils.readValue(value, LocalDateTime.class);
+        System.out.println("localDateTime = " + localDateTime);
     }
 }
