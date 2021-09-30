@@ -20,4 +20,14 @@
         </property>
         <property name="maxInMemorySize" value="5000000"/>
     </bean>
+    <bean id="jedis" class="redis.clients.jedis.Jedis">
+        <!--        Jedis(final String host, final int port, final int connectionTimeout, final int soTimeout)-->
+        <constructor-arg name="host" type="java.lang.String" value="redis.host"/>
+        <!-- redis password -->
+        <constructor-arg name="port" type="int" value="${redis.port}"/>
+        <!-- redis连接超时时间 -->
+        <constructor-arg name="connectionTimeout" type="int" value="${redis.conn.timeout}"/>
+        <!-- redis socket超时时间 -->
+        <constructor-arg name="soTimeout" type="int" value="${redis.socket.timeout}"/>
+    </bean>
 </beans>

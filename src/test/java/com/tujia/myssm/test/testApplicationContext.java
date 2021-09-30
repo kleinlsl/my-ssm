@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.tujia.myssm.cache.LocalCache;
+import redis.clients.jedis.Jedis;
 
 /**
  *
@@ -25,5 +26,11 @@ public class testApplicationContext {
         System.out.println("localCache = " + localCache);
         localCache = (LocalCache) application.getBean(LocalCache.class);
         System.out.println("localCache = " + localCache);
+    }
+
+    @Test
+    public void testGetJedis() {
+        Jedis jedis = (Jedis) application.getBean(Jedis.class);
+        System.out.println("jedis = " + jedis.get("test"));
     }
 }
