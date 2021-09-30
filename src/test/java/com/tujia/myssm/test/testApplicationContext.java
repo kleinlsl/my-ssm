@@ -30,7 +30,27 @@ public class testApplicationContext {
 
     @Test
     public void testGetJedis() {
-        Jedis jedis = (Jedis) application.getBean(Jedis.class);
-        System.out.println("jedis = " + jedis.get("test"));
+        Jedis jedis = application.getBean(Jedis.class);
+        System.out.println("jedis = " + jedis.get("name"));
     }
+
+    @Test
+    public void testJedis() {
+        //设置ip地址
+
+        Jedis jedis = new Jedis("192.168.204.135", 6379, 1000, 10000);
+
+        //保存数据
+
+        jedis.set("name", "imooc");
+
+        String val = jedis.get("name");
+
+        System.out.println(val);
+
+        //释放资源
+
+        jedis.close();
+    }
+
 }

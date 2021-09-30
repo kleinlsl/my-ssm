@@ -2,14 +2,21 @@ package com.tujia.myssm.web.controller;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import javax.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import com.tujia.myssm.api.model.excel.UnitIdsExcelDownload;
+import com.tujia.myssm.base.BizTemplate;
+import com.tujia.myssm.base.BizTemplatePool;
+import com.tujia.myssm.base.exception.BizException;
+import com.tujia.myssm.base.monitor.Monitors;
 import com.tujia.myssm.common.utils.JsonUtils;
 import com.tujia.myssm.common.utils.date.DateTimeRange;
+import com.tujia.myssm.common.utils.redis.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -20,6 +27,65 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/test/")
 @Slf4j
 public class TestController extends BaseController {
+
+    @Resource
+    private RedisUtils redisUtils;
+    @Resource
+    private RestTemplate restTemplate;
+
+    @GetMapping("/biz/template")
+    public String testBizTemplate() {
+        return new BizTemplate<String>(Monitors.BackDoorController_testBizTemplate) {
+
+            @Override
+            protected void checkParams() throws BizException {
+
+            }
+
+            @Override
+            protected String process() throws Exception {
+                log.info("[BackDoorController.testBizTemplate] 处理了，{},{}", this, System.identityHashCode(this));
+                return null;
+            }
+
+        }.execute();
+    }
+
+    @GetMapping("/biz/template/a")
+    public String testBizTemplateA() {
+        return BizTemplatePool.get(Monitors.BackDoorController_testBizTemplateA, () -> new BizTemplate<String>() {
+            @Override
+            protected void checkParams() throws BizException {
+                log.info("[BackDoorController.testBizTemplateA] checkParams 处理了，{},{}", this,
+                        System.identityHashCode(this));
+            }
+
+            @Override
+            protected String process() throws Exception {
+                log.info("[BackDoorController.testBizTemplateA] process 处理了，{},{}", this,
+                        System.identityHashCode(this));
+                return "成功了： " + this.hashCode();
+            }
+        }).execute();
+    }
+
+    @GetMapping("/biz/template/C")
+    public String testBizTemplateC() {
+        return BizTemplatePool.get(Monitors.BackDoorController_testBizTemplateC, () -> new BizTemplate<String>() {
+            @Override
+            protected void checkParams() throws BizException {
+                log.info("[BackDoorController.testBizTemplateC] checkParams 处理了，{},{}", this,
+                        System.identityHashCode(this));
+            }
+
+            @Override
+            protected String process() throws Exception {
+                log.info("[BackDoorController.testBizTemplateC] process 处理了，{},{}", this,
+                        System.identityHashCode(this));
+                return "成功了： " + this.hashCode();
+            }
+        }).execute();
+    }
 
     @GetMapping("test")
     public UnitIdsExcelDownload test() {
@@ -43,4 +109,24 @@ public class TestController extends BaseController {
         log.info("[TestController.testDateTimeRange1] 请求参数：{}", JsonUtils.tryToJson(dateTimeRange));
         return dateTimeRange;
     }
+
+    @GetMapping("test/redis/get")
+    public String testRedisGet() {
+        //保存数据
+
+        redisUtils.set("name", "imooc");
+
+        String val = redisUtils.get("name");
+        log.info("[TestController.testRedisGet] res：{}", JsonUtils.tryToJson(val));
+        return val;
+    }
+
+    @GetMapping("test/restTemplate")
+    public String testRestTemplate() {
+        String response = restTemplate.getForObject("https://www.baidu.com", String.class);
+
+        log.info("[TestController.testRedisGet] res：{}", JsonUtils.tryToJson(response));
+        return response;
+    }
+
 }

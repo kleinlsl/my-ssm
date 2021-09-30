@@ -15,4 +15,11 @@ public class RedisUtils {
     @Resource
     private Jedis jedis;
 
+    public String get(String key) {
+        return jedis.get(key);
+    }
+
+    public void set(String key, String value) {
+        jedis.set(key, value);
+    }
 }
