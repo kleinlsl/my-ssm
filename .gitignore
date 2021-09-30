@@ -35,4 +35,4 @@ Thumbs.db
 
 *dependency.txt
 sql-file/tujiaonlinepromo.sql
-com/tujia/myssm/web/controller/backdoor
+src/main/java/com/tujia/myssm/web/controller/backdoor
