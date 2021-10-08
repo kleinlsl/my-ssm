@@ -30,7 +30,7 @@ public class SwaggerConfig {
                 //页面标题
                 .title("SSM集成Swagger2构建RESTful API")
                 //创建人
-                .contact(new Contact("12组", "https://gitee.com/kleinlsl/aomaomanage", "2445859460@qq.com"))
+                .contact(new Contact("null", "https://gitee.com/kleinlsl", "***"))
                 //版本号
                 .version("1.9")
                 //描述
