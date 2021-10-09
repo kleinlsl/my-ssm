@@ -34,4 +34,5 @@ Thumbs.db
 # *.tar.gz
 
 *dependency.txt
-sql-file/tujiaonlinepromo.sql
+sql-file/
+src/main/java/com/tujia/myssm/web/controller/backdoor

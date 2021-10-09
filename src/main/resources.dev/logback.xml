@@ -49,10 +49,39 @@
         <appender-ref ref="bizBaseAppender"/>
     </appender>
 
+    <appender name="redisBaseAppender"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Append>true</Append>
+        <encoder>
+            <pattern>${normal-pattern}</pattern>
+            <charset>${encoding}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.dir}/redis.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="redisAsyncAppender" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>500</queueSize>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="redisBaseAppender"/>
+    </appender>
+
     <logger name="com.tujia.myssm" level="INFO" additivity="false">
         <appender-ref ref="bizAsyncAppender"/>
         <appender-ref ref="errorAppender"/>
         <appender-ref ref="consoleAppender"/>
+    </logger>
+
+    <logger name="" level="INFO" additivity="false">
+        <appender-ref ref="bizAsyncAppender"/>
+        <appender-ref ref="errorAppender"/>
+        <appender-ref ref="consoleAppender"/>
+    </logger>
+
+    <logger name="com.tujia.redis" level="INFO" additivity="false">
+        <appender-ref ref="redisAsyncAppender"/>
     </logger>
 
     <root level="INFO">

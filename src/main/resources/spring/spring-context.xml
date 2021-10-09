@@ -17,6 +17,7 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:exclude-filter type="annotation"
                                 expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+        <context:exclude-filter type="assignable" expression="com.tujia.myssm.web.config.SwaggerConfig"/>
     </context:component-scan>
     <!-- 向容器自动注入配置 -->
     <context:annotation-config/>
