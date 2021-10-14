@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tujia.myssm.dao.master.PromoDueReminderDao">
+    <resultMap id="AllColumnMap" type="com.tujia.myssm.api.model.PromoDueReminder">
+        <id column="id" property="id"/>
+        <result column="member_id" property="memberId"/>
+        <result column="promo_code" property="promoCode"/>
+        <result column="to_time" property="toTime"/>
+        <result column="number" property="number"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <sql id="all_column">
+        `id`,
+        `member_id`,
+        `promo_code`,
+        `to_time`,
+        `number`,
+        `create_time`,
+        `update_time`
+    </sql>
+
+    <insert id="saveOrUpdate">
+        INSERT INTO `promo_due_reminder`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.memberId > 0">`member_id`,</if>
+            <if test="pojo.promoCode != null">`promo_code`,</if>
+            <if test="pojo.toTime != null">`to_time`,</if>
+            <if test="pojo.number > 0 ">`number`,</if>
+            `create_time`,
+            `update_time`,
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.memberId > 0">#{pojo.memberId},</if>
+            <if test="pojo.promoCode != null">#{pojo.promoCode},</if>
+            <if test="pojo.toTime != null">#{pojo.toTime},</if>
+            <if test="pojo.number > 0">#{pojo.number},</if>
+            now(),
+            now()
+        </trim>
+        ON DUPLICATE KEY UPDATE
+        <trim suffixOverrides=",">
+            <if test="pojo.memberId > 0">`member_id` = #{pojo.memberId},</if>
+            <if test="pojo.promoCode != null">`promo_code` = #{pojo.promoCode},</if>
+            <if test="pojo.toTime != null">`to_time` = #{pojo.toTime},</if>
+            `number` = `number` + 1
+        </trim>
+    </insert>
+    <!--
+    explain select * from promo_due_reminder where member_id=73294 and promo_code="PRP-27B028C5-2CD2-49CA-9D9A-03E4CABD9BDD" ;
+    1	SIMPLE	promo_due_reminder		const	uniq_idx_promo_code,idx_member_id_promo_code	uniq_idx_promo_code	202	const	1	100
+    -->
+    <select id="selectByMemberAndPromoCode" resultMap="AllColumnMap">
+        select
+        <include refid="all_column"/>
+        from `promo_due_reminder`
+        where member_id=#{memberId} and promo_code=#{promoCode}
+    </select>
+
+</mapper>
