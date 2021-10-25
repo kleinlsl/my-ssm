@@ -34,9 +34,16 @@
         <redis.version>2.9.0</redis.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <proto.version>3.5.0</proto.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${proto.version}</version>
+        </dependency>
+
         <!-- spring mvc -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -122,11 +129,11 @@
             <version>${project.build.mysql.c3p0.version}</version>
         </dependency>
         <!-- 日志组件 -->
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>${project.build.logging.version}</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>commons-logging</groupId>-->
+        <!--            <artifactId>commons-logging</artifactId>-->
+        <!--            <version>${project.build.logging.version}</version>-->
+        <!--        </dependency>-->
         <!-- lombok插件-->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -312,6 +319,7 @@
         </profile>
     </profiles>
 
+
     <build>
         <finalName>${artifactId}</finalName>
         <resources>
@@ -322,6 +330,33 @@
                 <directory>src/main/resources</directory>
             </resource>
         </resources>
+        <extensions>
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>1.5.0.Final</version>
+            </extension>
+        </extensions>
+        <plugins>
+            <plugin>
+                <groupId>org.xolstice.maven.plugins</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>0.5.1</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>test-compile</goal>
+                        </goals>
+                        <configuration>
+                            <protocArtifact>com.google.protobuf:protoc:${proto.version}:exe:${os.detected.classifier}
+                            </protocArtifact>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

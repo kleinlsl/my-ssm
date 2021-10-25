@@ -1,7 +1,9 @@
 package com.tujia.myssm.common.utils.redis;
 
+import java.util.Optional;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Component;
+import lombok.experimental.Delegate;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -13,13 +15,20 @@ import redis.clients.jedis.Jedis;
 public class RedisUtils {
 
     @Resource
+    @Delegate
     private Jedis jedis;
 
-    public String get(String key) {
-        return jedis.get(key);
+    /**
+     * 删除给定的key
+     * @param key
+     * @return
+     */
+    public long delKey(String key) {
+        return Optional.ofNullable(jedis.del(key)).orElse(0L);
     }
 
-    public void set(String key, String value) {
-        jedis.set(key, value);
+    public long delKey(String... keys) {
+        return Optional.ofNullable(jedis.del(keys)).orElse(0L);
     }
+
 }
