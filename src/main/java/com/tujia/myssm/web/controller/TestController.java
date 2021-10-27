@@ -3,12 +3,15 @@ package com.tujia.myssm.web.controller;
 import java.time.LocalDateTime;
 import java.util.Date;
 import javax.annotation.Resource;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import com.google.common.base.Preconditions;
 import com.tujia.myssm.api.model.excel.UnitIdsExcelDownload;
 import com.tujia.myssm.base.BizTemplate;
 import com.tujia.myssm.base.BizTemplatePool;
@@ -57,13 +60,13 @@ public class TestController extends BaseController {
             @Override
             protected void checkParams() throws BizException {
                 log.info("[BackDoorController.testBizTemplateA] checkParams 处理了，{},{}", this,
-                        System.identityHashCode(this));
+                         System.identityHashCode(this));
             }
 
             @Override
             protected String process() throws Exception {
                 log.info("[BackDoorController.testBizTemplateA] process 处理了，{},{}", this,
-                        System.identityHashCode(this));
+                         System.identityHashCode(this));
                 return "成功了： " + this.hashCode();
             }
         }).execute();
@@ -75,13 +78,13 @@ public class TestController extends BaseController {
             @Override
             protected void checkParams() throws BizException {
                 log.info("[BackDoorController.testBizTemplateC] checkParams 处理了，{},{}", this,
-                        System.identityHashCode(this));
+                         System.identityHashCode(this));
             }
 
             @Override
             protected String process() throws Exception {
                 log.info("[BackDoorController.testBizTemplateC] process 处理了，{},{}", this,
-                        System.identityHashCode(this));
+                         System.identityHashCode(this));
                 return "成功了： " + this.hashCode();
             }
         }).execute();
@@ -127,6 +130,29 @@ public class TestController extends BaseController {
 
         log.info("[TestController.testRedisGet] res：{}", JsonUtils.tryToJson(response));
         return response;
+    }
+
+    @GetMapping("test/testGenerateAliasConfig")
+    public String testGenerateAliasConfig(@RequestParam("count") int count,
+                                          @RequestParam("aliasPrefix") String aliasPrefix,
+                                          @RequestParam("hostNamePrefix") String hostNamePrefix,
+                                          @RequestParam("hostNameSuffix") String hostNameSuffix) {
+        Preconditions.checkArgument(count > 0, "count 应该大于0");
+        Preconditions.checkArgument(StringUtils.isNotBlank(aliasPrefix), "aliasPrefix 不能为空");
+        Preconditions.checkArgument(StringUtils.isNotBlank(hostNamePrefix), "hostNamePrefix 不能为空");
+        Preconditions.checkArgument(StringUtils.isNotBlank(hostNameSuffix), "hostNameSuffix 不能为空");
+        final String host = "Host ";
+        final String hostName = "Hostname ";
+        final String user = "User songlinl";
+        StringBuffer result = new StringBuffer();
+        for (int i = 0; i <= count; i++) {
+            String stringBuffer =
+                    host + aliasPrefix + i + "\n" + hostName + hostNamePrefix + i + hostNameSuffix + "\n" + user +
+                            "\n\n";
+            System.out.println(stringBuffer);
+            result.append(stringBuffer).append("\n");
+        }
+        return result.toString();
     }
 
 }
