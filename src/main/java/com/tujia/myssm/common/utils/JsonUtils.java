@@ -115,4 +115,6 @@ public final class JsonUtils {
         LocalDateTime localDateTime = JsonUtils.readValue(value, LocalDateTime.class);
         System.out.println("localDateTime = " + localDateTime);
     }
+
+    public static ObjectMapper getObjectMapperInstance() { return objectMapper; }
 }
