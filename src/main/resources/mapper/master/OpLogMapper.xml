@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tujia.myssm.dao.master.OpLogMapper">
+
+    <resultMap id="BaseResultMap" type="com.tujia.myssm.api.model.OpLog">
+        <!-- @Table `op_log` -->
+        <id column="id" property="id"/>
+        <result column="type" property="type"/>
+        <result column="detail" property="detail"/>
+        <result column="operator" property="operator"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        `id`,
+        `type`,
+        `detail`,
+        `operator`,
+        `create_time`
+    </sql>
+
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.tujia.myssm.api.model.OpLog"
+            useGeneratedKeys="true">
+        insert into `op_log`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="type >= 0">type,</if>
+            <if test="detail != null">detail,</if>
+            <if test="operator != null">operator,</if>
+            create_time
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="type >= 0">#{type},</if>
+            <if test="detail != null">#{detail},</if>
+            <if test="operator != null">#{operator},</if>
+            now()
+        </trim>
+    </insert>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `op_log`
+        where `id`=#{id}
+    </select>
+
+
+</mapper>

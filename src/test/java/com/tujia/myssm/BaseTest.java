@@ -1,8 +1,6 @@
 package com.tujia.myssm;
 
 import org.junit.runner.RunWith;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -15,9 +13,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @ContextConfiguration(locations = { "classpath:spring-config.xml", "classpath:mybatis-config.xml" })
 @WebAppConfiguration("web")
 public class BaseTest {
-        public static ApplicationContext application;
-
-        static {
-                application = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
-        }
+    //        public static ApplicationContext application;
+    //
+    //        static {
+    //                application = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
+    //        }
 }
