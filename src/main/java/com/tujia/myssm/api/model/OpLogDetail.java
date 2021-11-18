@@ -2,6 +2,7 @@ package com.tujia.myssm.api.model;
 
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class OpLogDetail implements Serializable {
@@ -31,4 +33,14 @@ public class OpLogDetail implements Serializable {
      * 新值
      */
     private String newValue;
+
+    /**
+     * 备注类型
+     */
+    private Integer markType;
+
+    /**
+     * 备注
+     */
+    private OpLogMark mark;
 }
