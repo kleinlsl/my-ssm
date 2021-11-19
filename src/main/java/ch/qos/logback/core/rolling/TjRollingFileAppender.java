@@ -62,17 +62,19 @@ public class TjRollingFileAppender<E> extends RollingFileAppender<E> {
      */
     @Override
     protected void subAppend(E event) {
-        threadPoolExecutor.submit(() -> {doMessage(event);});
+        doMessage(event);
         super.subAppend(event);
     }
 
     private void doMessage(E event) {
         LoggingEvent loggingEvent = (LoggingEvent) event;
         if (loggingEvent.getLevel().isGreaterOrEqual(Level.ERROR)) {
-            System.err.println("event = " + event);
-            for (StackTraceElement stackTraceElement : loggingEvent.getCallerData()) {
-                System.err.println(stackTraceElement);
-            }
+            threadPoolExecutor.submit(() -> {
+                System.err.println("event = " + event);
+                for (StackTraceElement stackTraceElement : loggingEvent.getCallerData()) {
+                    System.err.println(stackTraceElement);
+                }
+            });
         }
     }
 }
