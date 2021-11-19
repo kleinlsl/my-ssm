@@ -17,7 +17,7 @@ public class BaseController {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public APIResponse<Void> handleException(Exception e) {
-        log.warn("[BaseController.handleException] Error,msg={}", e.getMessage(), e);
+        log.error("[BaseController.handleException] Error,msg={}", e.getMessage(), e);
         if (e instanceof UnexpectedRollbackException) {
             String errMsg = e.getCause() != null ? e.getCause().getMessage() : e.getMessage();
             return APIResponse.returnFail(errMsg);

@@ -19,9 +19,10 @@ public class CityCashBackServiceImpl implements CityCashBackService {
     @Resource
     private CityCashBackDao cityCashBackDao;
 
+    private static CommonService commonService = ApplicationContextUtil.getBean(CommonService.class);
+
     @Override
     public List<CityCashBack> query(CityCashBack cashBack) {
-        CommonService commonService = ApplicationContextUtil.getBean(CommonService.class);
         if (cashBack == null) {
             return null;
         }

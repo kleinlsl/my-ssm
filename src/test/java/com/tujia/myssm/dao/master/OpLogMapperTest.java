@@ -3,6 +3,7 @@ package com.tujia.myssm.dao.master;
 import javax.annotation.Resource;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.util.Base64Utils;
 import com.tujia.myssm.BaseTest;
 import com.tujia.myssm.api.enums.EnumOpType;
 import com.tujia.myssm.api.model.DefaultOpLogMark;
@@ -35,5 +36,15 @@ public class OpLogMapperTest extends BaseTest {
     public void testSelectById() {
         OpLog opLog = opLogMapper.selectById(2L);
         System.out.println("JsonUtils.toJson(opLog) = " + JsonUtils.toJson(opLog));
+    }
+
+    @Test
+    public void test() {
+        String src = new String(Base64Utils.decodeFromString(
+                "L3JuX2JuYi9tYWluLmpzP0NSTk1vZHVsZU5hbWU9VHVKaWFBcHAmQ1JOVHlwZT0xJmluaXRpYWxQYWdlPVNlYXJjaExpc3QmZnJvbVBhZ2U9dHJhaW5UYXNrJnBhZ2VOYW1lPXRyYWluVGFzayZ0cmFpblRhc2tJZD0xMDAwMyZ1cmw9aHR0cHMlM0ElMkYlMkZtLnR1amlhLmNvbSUyRmdvbmd5dSUyRmJlaWppbmclMkY="));
+        System.out.println("src = " + src);
+        src = new String(Base64Utils.decodeFromString(
+                "L3JuX2JuYi9tYWluLmpzP0NSTk1vZHVsZU5hbWU9VHVKaWFBcHAmQ1JOVHlwZT0xJmluaXRpYWxQYWdlPVNlYXJjaExpc3QmZnJvbVBhZ2U9dHJhaW5UYXNrJnBhZ2VOYW1lPXRyYWluVGFzayZ0cmFpblRhc2tJZD0xMDAwNCZ1cmw9aHR0cHMlM0ElMkYlMkZtLnR1amlhLmNvbSUyRmdvbmd5dSUyRmJlaWppbmclMkY="));
+        System.out.println("src = " + src);
     }
 }
