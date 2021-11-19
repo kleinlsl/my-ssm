@@ -1,7 +1,9 @@
 package ch.qos.logback.core.rolling;
 
 import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.LoggingEvent;
@@ -15,6 +17,12 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
  */
 public class TjRollingFileAppender<E> extends RollingFileAppender<E> {
     private static final Logger LOG = LoggerFactory.getLogger(TjRollingFileAppender.class);
+    private static final ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(4, 4, 0L, TimeUnit.NANOSECONDS,
+                                                                                        new LinkedBlockingQueue<>(100),
+                                                                                        new ThreadFactoryBuilder()
+                                                                                                .setNameFormat(
+                                                                                                        "system_default_%d")
+                                                                                                .build());
 
     private static final List<TjRollingFileAppender> APPENDERS = Lists.newArrayList();
 
@@ -54,8 +62,7 @@ public class TjRollingFileAppender<E> extends RollingFileAppender<E> {
      */
     @Override
     protected void subAppend(E event) {
-        // 做一些消息处理
-        doMessage(event);
+        threadPoolExecutor.submit(() -> {doMessage(event);});
         super.subAppend(event);
     }
 
