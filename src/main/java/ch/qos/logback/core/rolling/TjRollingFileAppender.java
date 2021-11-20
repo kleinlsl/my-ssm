@@ -7,6 +7,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.LoggingEvent;
+import ch.qos.logback.core.encoder.LayoutWrappingEncoder;
 import com.alibaba.dubbo.common.logger.Logger;
 import com.alibaba.dubbo.common.logger.LoggerFactory;
 import com.google.common.collect.Lists;
@@ -67,14 +68,21 @@ public class TjRollingFileAppender<E> extends RollingFileAppender<E> {
     }
 
     private void doMessage(E event) {
+        System.err.println("getLogMsg(event) = " + getLogMsg(event));
         LoggingEvent loggingEvent = (LoggingEvent) event;
         if (loggingEvent.getLevel().isGreaterOrEqual(Level.ERROR)) {
-            threadPoolExecutor.submit(() -> {
-                System.err.println("event = " + event);
-                for (StackTraceElement stackTraceElement : loggingEvent.getCallerData()) {
-                    System.err.println(stackTraceElement);
-                }
+            threadPoolExecutor.execute(() -> {
+                System.err.println("msg = " + getLogMsg(event));
             });
         }
+    }
+
+    /**
+     * 获取日志信息
+     * @param event
+     * @return
+     */
+    private String getLogMsg(E event) {
+        return ((LayoutWrappingEncoder<E>) this.encoder).getLayout().doLayout(event);
     }
 }
