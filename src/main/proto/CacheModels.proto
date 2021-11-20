@@ -1,0 +1,15 @@
+syntax = "proto3";
+package com.tujia.myssm.cache;
+
+message BInteger {
+    bytes value = 1;
+}
+
+message BDecimal {
+    int32 scale = 1;
+    BInteger int_val = 2;
+}
+
+message Student {
+    BDecimal score = 1;
+}

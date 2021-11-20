@@ -10,12 +10,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
  * @create: 2021/08/01 18:03
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(
-        locations = {
-                "classpath:mybatis-config.xml",
-                "classpath:spring-config.xml"
-        }
-)
+@ContextConfiguration(locations = { "classpath:spring-config.xml", "classpath:mybatis-config.xml" })
 @WebAppConfiguration("web")
 public class BaseTest {
+    //        public static ApplicationContext application;
+    //
+    //        static {
+    //                application = new ClassPathXmlApplicationContext("classpath:spring-config.xml");
+    //        }
 }

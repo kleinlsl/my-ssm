@@ -12,9 +12,7 @@ import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import com.tujia.myssm.common.utils.ApplicationContextUtil;
 import com.tujia.myssm.common.utils.JsonUtils;
-import com.tujia.myssm.service.CommonService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -30,12 +28,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ErrorSqlInterceptor implements Interceptor {
     public boolean printSql = true;
-    //    private static CommonService commonService = ApplicationContextUtil.getBean(CommonService.class);
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         String sql = null;
-        //        commonService.sayHello();
         MappedStatement mappedStatement = (MappedStatement) invocation.getArgs()[0];
         Object parameter = invocation.getArgs()[1];
         try {
@@ -43,12 +39,12 @@ public class ErrorSqlInterceptor implements Interceptor {
             return invocation.proceed();
         } catch (Exception e) {
             log.error("SQL Error : method => {}, sql => {} , parameter => {}", mappedStatement.getId(), sql,
-                    JsonUtils.tryToJson(parameter), e);
+                      JsonUtils.tryToJson(parameter), e);
             throw e;
         } finally {
             if (printSql) {
                 log.info("SQL INFO : method => {}, sql => {} , parameter => {}", mappedStatement.getId(), sql,
-                        JsonUtils.tryToJson(parameter));
+                         JsonUtils.tryToJson(parameter));
             }
         }
     }

@@ -12,8 +12,11 @@
     </settings>
 
     <typeHandlers>
-        <typeHandler handler="com.tujia.myssm.dao.handler.LocalDateTimeHandler" javaType="java.time.LocalDateTime"/>
+        <typeHandler handler="com.tujia.myssm.common.db.handlers.LocalDateTimeHandler"
+                     javaType="java.time.LocalDateTime"/>
+        <typeHandler handler="com.tujia.myssm.common.db.handlers.OpLogDetailHandler"/>
     </typeHandlers>
+
     <plugins>
         <plugin interceptor="com.tujia.myssm.common.db.interceptor.ErrorSqlInterceptor"/>
     </plugins>

@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @Component
 @Slf4j
-public class UserIdentifyAspect {
+public class UserIdentifyAspect extends BaseAspect {
 
     @Pointcut("@annotation(com.tujia.myssm.web.aop.UserIdentify)")
     public void controllerAspect() {
@@ -38,6 +38,7 @@ public class UserIdentifyAspect {
     public void doBefore(JoinPoint joinPoint) {
         log.error("[UserIdentifyAspect.doBefore] ");
         try {
+            httpRequestLog(joinPoint);
             log.info("UserIdentifyAspect.doBefore:{}.{}", getClassName(joinPoint), getMethodName(joinPoint));
             RequestContext context = RequestContext.getThreadLocal();
             UserIdentify userIdentify = getAnnotation(joinPoint);
@@ -73,14 +74,6 @@ public class UserIdentifyAspect {
             return method.getAnnotation(UserIdentify.class);
         }
         return null;
-    }
-
-    private String getMethodName(JoinPoint joinPoint) {
-        return joinPoint.getSignature().getName();
-    }
-
-    private String getClassName(JoinPoint joinPoint) {
-        return joinPoint.getTarget().getClass().getSimpleName();
     }
 
     @After("controllerAspect()")

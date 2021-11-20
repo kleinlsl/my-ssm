@@ -1,8 +1,13 @@
 package com.tujia.myssm.web.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.tujia.framework.api.APIResponse;
+import com.tujia.myssm.api.model.excel.UnitIdsExcel;
+import com.tujia.myssm.common.utils.JsonUtils;
 import com.tujia.myssm.web.aop.UserIdentify;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +30,12 @@ public class BackDoorController extends BaseController {
     @UserIdentify(mustLogin = true)
     public String userIdentifyEx() {
         throw new RuntimeException("发生异常了");
+    }
+
+    @PostMapping("/userIdentifyLog")
+    @UserIdentify(mustLogin = true)
+    public APIResponse<String> userIdentifyLog(@RequestBody UnitIdsExcel excel) {
+        return APIResponse.returnSuccess(JsonUtils.toJson(excel));
     }
 
 }

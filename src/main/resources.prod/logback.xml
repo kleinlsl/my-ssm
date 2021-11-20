@@ -31,7 +31,7 @@
     </appender>
 
     <appender name="bizBaseAppender"
-              class="ch.qos.logback.core.rolling.RollingFileAppender">
+              class="ch.qos.logback.core.rolling.TjRollingFileAppender">
         <Append>true</Append>
         <encoder>
             <pattern>${normal-pattern}</pattern>

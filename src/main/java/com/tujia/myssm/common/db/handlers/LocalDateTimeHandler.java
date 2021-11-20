@@ -1,4 +1,4 @@
-package com.tujia.myssm.dao.handler;
+package com.tujia.myssm.common.db.handlers;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
