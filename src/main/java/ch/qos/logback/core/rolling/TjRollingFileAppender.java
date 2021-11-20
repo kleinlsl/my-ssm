@@ -68,12 +68,14 @@ public class TjRollingFileAppender<E> extends RollingFileAppender<E> {
     }
 
     private void doMessage(E event) {
-        System.err.println("getLogMsg(event) = " + getLogMsg(event));
-        LoggingEvent loggingEvent = (LoggingEvent) event;
-        if (loggingEvent.getLevel().isGreaterOrEqual(Level.ERROR)) {
-            threadPoolExecutor.execute(() -> {
-                System.err.println("msg = " + getLogMsg(event));
-            });
+        if (this.isStarted()) {
+            System.err.println("getLogMsg(event) = " + getLogMsg(event));
+            LoggingEvent loggingEvent = (LoggingEvent) event;
+            if (loggingEvent.getLevel().isGreaterOrEqual(Level.ERROR)) {
+                threadPoolExecutor.execute(() -> {
+                    System.err.println("msg = " + getLogMsg(event));
+                });
+            }
         }
     }
 
