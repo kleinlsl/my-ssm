@@ -5,12 +5,17 @@
     <property name="encoding" value="UTF-8"/>
     <property name="normal-pattern"
               value="%d{yyyy-MM-dd.HH:mm:ss.SSS} %-5level TraceId[%X{traceId}] [%thread] [%logger{0}.%M:%L] - %msg%n"/>
-    ß
+
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${normal-pattern}</pattern>
             <charset>${encoding}</charset>
         </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.dir}/catalina.bak.%d{yyyy-MM-dd-HH:mm}.log
+            </fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
     </appender>
 
     <appender name="errorAppender"
@@ -31,7 +36,7 @@
     </appender>
 
     <appender name="bizBaseAppender"
-              class="com.tujia.myssm.common.logback.MyAppender">
+              class="com.tujia.myssm.common.logback.appender.MyAppender">
         <Append>true</Append>
         <encoder>
             <pattern>${normal-pattern}</pattern>

@@ -1,10 +1,12 @@
 package com.tujia.myssm.web.utils;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.servlet.DispatcherType;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -50,8 +52,7 @@ public class RequestUtil {
         String queryString = request.getQueryString();
         String queryClause = (StringUtils.hasLength(queryString) ? "?" + queryString : "");
         String dispatchType = (!request.getDispatcherType().equals(DispatcherType.REQUEST) ?
-                "\"" + request.getDispatcherType().name() + "\" dispatch for " :
-                "");
+                "\"" + request.getDispatcherType().name() + "\" dispatch for " : "");
         String message = (dispatchType + request.getMethod() + " \"" + getRequestUri(request) + queryClause +
                 "\", parameters={" + params + "}");
 
@@ -59,6 +60,49 @@ public class RequestUtil {
         String headers = values.stream().map(name -> name + ":" + Collections.list(request.getHeaders(name))).collect(
                 Collectors.joining(", "));
         return message + ", headers={" + headers + "} ";
+    }
+
+    public static String getRequestInfo(HttpServletRequest req) throws ServletException, IOException {
+        StringBuffer sb = new StringBuffer();
+        sb.append("method:" + req.getMethod() + ",\r\n");
+        sb.append("URI:" + req.getRequestURI() + "\r\n");
+        sb.append("QueryString:" + req.getQueryString() + "\r\n");
+        sb.append("ContentType:" + req.getContentType() + "\r\n");
+        sb.append("ContentLength:" + req.getContentLength() + "\r\n");
+        sb.append("Protocol:" + req.getProtocol() + "\r\n");
+        sb.append("RemoteAddr:" + req.getRemoteAddr() + "\r\n");
+        sb.append("RemoteHost:" + req.getRemoteHost() + "\r\n");
+
+        //        BufferedReader in = null;
+        //        try {
+        //            // 读取输出内容
+        //            in = new BufferedReader(new InputStreamReader(req.getInputStream(), "UTF-8"));
+        //            String line;
+        //            sb.append("Data:\r\n");
+        //            while ((line = in.readLine()) != null) {
+        //                sb.append(line);
+        //            }
+        //
+        //            sb.append("header :\r\n");
+        //            Enumeration<String> enumeration = req.getHeaderNames();
+        //            while (enumeration.hasMoreElements()) {
+        //                Object obj = enumeration.nextElement();
+        //                sb.append(obj.toString() + ": " + req.getHeader(obj.toString()) + "; ");
+        //                sb.append("\r\n");
+        //            }
+        //
+        //        } catch (Exception ex) {
+        //            throw ex;
+        //        } finally {
+        //            try {
+        //                if (in != null) {
+        //                    in.close();
+        //                }
+        //            } catch (Exception ex2) {
+        //                throw ex2;
+        //            }
+        //        }
+        return sb.toString();
     }
 
 }

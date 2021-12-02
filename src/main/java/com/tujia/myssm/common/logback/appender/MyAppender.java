@@ -1,4 +1,4 @@
-package com.tujia.myssm.common.logback;
+package com.tujia.myssm.common.logback.appender;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.LoggingEvent;
