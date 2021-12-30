@@ -155,4 +155,9 @@ public class TestController extends BaseController {
         return result.toString();
     }
 
+    @GetMapping("test/queryHostList")
+    public String testQueryHostList(@RequestParam("appCode") String appCode) {
+        return null;
+    }
+
 }

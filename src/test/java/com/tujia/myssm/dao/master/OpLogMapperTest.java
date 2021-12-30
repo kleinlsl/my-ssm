@@ -47,4 +47,13 @@ public class OpLogMapperTest extends BaseTest {
                 "L3JuX2JuYi9tYWluLmpzP0NSTk1vZHVsZU5hbWU9VHVKaWFBcHAmQ1JOVHlwZT0xJmluaXRpYWxQYWdlPVNlYXJjaExpc3QmZnJvbVBhZ2U9dHJhaW5UYXNrJnBhZ2VOYW1lPXRyYWluVGFzayZ0cmFpblRhc2tJZD0xMDAwNCZ1cmw9aHR0cHMlM0ElMkYlMkZtLnR1amlhLmNvbSUyRmdvbmd5dSUyRmJlaWppbmclMkY="));
         System.out.println("src = " + src);
     }
+
+    @Test
+    public void testInsertOrUpdate() {
+        OpLog opLog = opLogMapper.selectById(2L);
+        opLog.setOperator("songlinl");
+        //        opLog.setCreateTime(LocalDateTime.now());
+        int count = opLogMapper.insertOrUpdate(opLog);
+        System.err.println("count = " + count);
+    }
 }

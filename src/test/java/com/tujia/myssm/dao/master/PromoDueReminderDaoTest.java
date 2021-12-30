@@ -25,9 +25,9 @@ public class PromoDueReminderDaoTest extends BaseTest {
     public void testSaveOrUpdate() {
         PromoDueReminder promoDueReminder = new PromoDueReminder();
         promoDueReminder.setMemberId(1L);
-        promoDueReminder.setPromoCode("111");
+        promoDueReminder.setPromoCode("1234");
         promoDueReminder.setNumber(1);
-        promoDueReminder.setToTime(LocalDateTime.now());
+        promoDueReminder.setToTime(LocalDateTime.now().plusDays(1L));
         int count = mapper.saveOrUpdate(promoDueReminder);
         System.err.println("count = " + count);
     }

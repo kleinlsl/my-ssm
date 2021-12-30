@@ -52,7 +52,8 @@ public class RequestUtil {
         String queryString = request.getQueryString();
         String queryClause = (StringUtils.hasLength(queryString) ? "?" + queryString : "");
         String dispatchType = (!request.getDispatcherType().equals(DispatcherType.REQUEST) ?
-                "\"" + request.getDispatcherType().name() + "\" dispatch for " : "");
+                "\"" + request.getDispatcherType().name() + "\" dispatch for " :
+                "");
         String message = (dispatchType + request.getMethod() + " \"" + getRequestUri(request) + queryClause +
                 "\", parameters={" + params + "}");
 
@@ -103,6 +104,50 @@ public class RequestUtil {
         //            }
         //        }
         return sb.toString();
+    }
+
+    public static String getLocalAddr() {
+        return NetworkInterfaceManager.INSTANCE.getLocalHostAddress();
+    }
+
+    public synchronized static String getHexLocalAddr() {
+        String ip = getLocalAddr();
+        String[] addr = ip.split("\\.");
+        StringBuilder result = new StringBuilder();
+        for (String s : addr) {
+            String hex = Integer.toHexString(Integer.parseInt(s));
+            if (hex.length() == 1) {
+                result.append("0");
+            }
+            result.append(hex);
+        }
+        return result.toString().toUpperCase();
+    }
+
+    public static String convert(String hexIp) {
+        if (StringUtils.isEmpty(hexIp) || hexIp.length() != 8) {
+            return "";
+        }
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < 4; i++) {
+            String subIp = hexIp.substring(i << 1, (i + 1) << 1);
+            if (i != 0) {
+                result.append(".");
+            }
+            result.append(Integer.parseInt(subIp, 16));
+        }
+        return result.toString();
+    }
+
+    public static void main(String[] args) {
+        String realIp = getLocalAddr();
+        String hexIp = getHexLocalAddr();
+        String ip = convert(hexIp);
+
+        System.out.println("realIp = " + realIp);
+        System.out.println("hexIp = " + hexIp);
+        System.out.println("ip = " + ip);
+        System.out.println("convert(\"0A5A382A\") = " + convert("0A5A382A"));
     }
 
 }
