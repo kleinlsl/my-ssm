@@ -2,7 +2,9 @@ package com.tujia.myssm.web.lock;
 
 import java.util.concurrent.TimeUnit;
 import com.tujia.myssm.common.utils.ApplicationContextUtil;
+import com.tujia.myssm.common.utils.Joiners;
 import com.tujia.myssm.service.RedisUtilService;
+import com.tujia.myssm.web.lock.generator.LockParam;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -14,6 +16,16 @@ import lombok.extern.slf4j.Slf4j;
 public class LockSupport {
 
     private static RedisUtilService redisUtilService = ApplicationContextUtil.getBean(RedisUtilService.class);
+
+    public static final String LOCK_PREFIX = "MUTEX_V1_";
+    public static final String LOCK_SUFFIX = "_LOCK";
+    private final static long DEF_LOCK_EXPIRED_MS = 2 * 1000;
+
+    @SameThread("releaseLock")
+    public static boolean grabLock(LockParam key) {
+        return grabLock(LockSupport.buildKey(key.getKey()), key.getExpiredMillis(), key.getRetryCount(),
+                        key.getTimeOut());
+    }
 
     @SameThread("releaseLock")
     public static boolean grabLock(String lockKey) {
@@ -68,8 +80,11 @@ public class LockSupport {
         return String.valueOf(Thread.currentThread().getId());
     }
 
-    private static long defLockExpiredMillis() {
-        return 1000 * 2;
+    public static long defLockExpiredMillis() {
+        return DEF_LOCK_EXPIRED_MS;
     }
 
+    public static String buildKey(Object keyObj) {
+        return Joiners.UNDERLINE_JOINER.join(LOCK_PREFIX, keyObj.toString(), LOCK_SUFFIX);
+    }
 }
