@@ -42,6 +42,7 @@
             <pattern>${normal-pattern}</pattern>
             <charset>${encoding}</charset>
         </encoder>
+        <file>${log.dir}/my-ssm.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${log.dir}/my-ssm.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
             <maxHistory>30</maxHistory>
