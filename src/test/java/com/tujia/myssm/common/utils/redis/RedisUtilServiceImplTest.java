@@ -1,22 +1,22 @@
 package com.tujia.myssm.common.utils.redis;
 
-import java.util.List;
+import java.util.Arrays;
 import javax.annotation.Resource;
 import org.junit.Test;
-import com.google.common.collect.Lists;
 import com.tujia.myssm.BaseTest;
 import com.tujia.myssm.api.model.PromoDueReminder;
 import com.tujia.myssm.common.utils.JsonUtils;
+import com.tujia.myssm.service.impl.RedisUtilServiceImpl;
 
 /**
  *
  * @author: songlinl
  * @create: 2021/10/14 17:00
  */
-public class RedisUtilsTest extends BaseTest {
+public class RedisUtilServiceImplTest extends BaseTest {
 
     @Resource
-    private RedisUtils redisUtils;
+    private RedisUtilServiceImpl redisUtilServiceImpl;
 
     //    @Before
     //    public void before(){
@@ -28,7 +28,7 @@ public class RedisUtilsTest extends BaseTest {
         final long memberId = 112L;
         final String key = RedisKeyManage.getDueReminderKey(memberId);
 
-        redisUtils.set(key, JsonUtils.toJson(new PromoDueReminder()));
+        redisUtilServiceImpl.set(key, JsonUtils.toJson(new PromoDueReminder()));
         //        redisUtils.incr(key);
         //        System.err.println("redisKeyUtils = " + redisUtils.get(key));
         //
@@ -47,21 +47,18 @@ public class RedisUtilsTest extends BaseTest {
 
         for (long id = 1L; id < memberId; id++) {
             String key = RedisKeyManage.getDueReminderKey(id);
-            redisUtils.hset(hashKey, key, String.valueOf(id));
-            redisUtils.hincrBy(hashKey, key, 1);
-            System.err.println("key=" + key + ";redisUtils = " + redisUtils.hget(hashKey, key));
+            redisUtilServiceImpl.hset(hashKey, key, String.valueOf(id));
+            redisUtilServiceImpl.hincrBy(hashKey, key, 1);
+            System.err.println("key=" + key + ";redisUtils = " + redisUtilServiceImpl.hget(hashKey, key));
         }
 
-        System.out.println("redisUtils.hgetAll(hashKey) = " + redisUtils.hgetAll(hashKey));
+        System.out.println("redisUtils.hgetAll(hashKey) = " + redisUtilServiceImpl.hgetAll(hashKey));
     }
 
     @Test
     public void set() {
-
-        redisUtils.sadd("key", (String[]) Lists.newArrayList("1", "2").toArray());
-        //        redisUtils.srem("key","1");
-        List<String> values = redisUtils.sentinelGetMasterAddrByName("key");
-        System.out.println("values = " + values);
+        redisUtilServiceImpl.sadd("key", (String[]) Arrays.asList("1", "2").toArray());
+        //        redisUtilServiceImpl.srem("key","1");
     }
 
 }

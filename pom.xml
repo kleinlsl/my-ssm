@@ -40,6 +40,38 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.3</version>
+        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.alibaba</groupId>-->
+        <!--            <artifactId>fastjson</artifactId>-->
+        <!--            <version>1.2.28</version>-->
+        <!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.20</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>jbig2-imageio</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        <!--二维码解析-->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
             <version>${proto.version}</version>
@@ -163,6 +195,10 @@
                 <exclusion>
                     <artifactId>slf4j-api</artifactId>
                     <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>commons-codec</artifactId>
+                    <groupId>commons-codec</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -315,6 +351,12 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-email</artifactId>
             <version>1.4</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>activation</artifactId>
+                    <groupId>javax.activation</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>

@@ -19,7 +19,7 @@ import com.tujia.myssm.base.exception.BizException;
 import com.tujia.myssm.base.monitor.Monitors;
 import com.tujia.myssm.common.utils.JsonUtils;
 import com.tujia.myssm.common.utils.date.DateTimeRange;
-import com.tujia.myssm.common.utils.redis.RedisUtils;
+import com.tujia.myssm.service.impl.RedisUtilServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TestController extends BaseController {
 
     @Resource
-    private RedisUtils redisUtils;
+    private RedisUtilServiceImpl redisUtilServiceImpl;
     @Resource
     private RestTemplate restTemplate;
 
@@ -116,10 +116,9 @@ public class TestController extends BaseController {
     @GetMapping("test/redis/get")
     public String testRedisGet() {
         //保存数据
+        redisUtilServiceImpl.set("name", "imooc");
 
-        redisUtils.set("name", "imooc");
-
-        String val = redisUtils.get("name");
+        String val = redisUtilServiceImpl.get("name");
         log.info("[TestController.testRedisGet] res：{}", JsonUtils.tryToJson(val));
         return val;
     }
@@ -150,9 +149,9 @@ public class TestController extends BaseController {
                     host + aliasPrefix + i + "\n" + hostName + hostNamePrefix + i + hostNameSuffix + "\n" + user +
                             "\n\n";
             System.out.println(stringBuffer);
-            result.append(stringBuffer).append("\n");
+            result.append(stringBuffer);
         }
-        return result.toString();
+        return result.append("\n").toString();
     }
 
     @GetMapping("test/queryHostList")
