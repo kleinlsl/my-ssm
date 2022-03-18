@@ -7,6 +7,7 @@ import java.util.stream.IntStream;
 import org.junit.Test;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.node.TextNode;
+import com.google.common.collect.Lists;
 import com.tujia.myssm.common.utils.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +39,15 @@ public class DoorControllerTest {
             System.out.println("res = " + res);
         }
         System.out.println("json = " + json);
+    }
+
+    public static void main(String[] args) {
+        List<Integer> list = Lists.newArrayList();
+        list.add(2);
+        list.add(3);
+        list.add(1);
+        list = list.stream().sorted().collect(Collectors.toList());
+        System.out.println("list = " + list);
     }
 
 }
