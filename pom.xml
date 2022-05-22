@@ -32,10 +32,11 @@
         <project.build.log4j12.version>1.7.5</project.build.log4j12.version>
         <aspectj.version>1.8.9</aspectj.version>
         <redis.version>2.9.0</redis.version>
+        <logback.version>1.2.0</logback.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <proto.version>3.5.0</proto.version>
-        <tc_xdriver_connector_version>1.6.4</tc_xdriver_connector_version>
+        <!--        <tc_xdriver_connector_version>1.6.4</tc_xdriver_connector_version>-->
     </properties>
 
     <dependencies>
@@ -364,11 +365,6 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>com.tujia.tc</groupId>
-            <artifactId>xdriver-connector</artifactId>
-            <version>${tc_xdriver_connector_version}</version>
-        </dependency>
     </dependencies>
 
 
