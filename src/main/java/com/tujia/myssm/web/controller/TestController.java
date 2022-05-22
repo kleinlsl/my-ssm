@@ -59,14 +59,12 @@ public class TestController extends BaseController {
         return BizTemplatePool.get(Monitors.BackDoorController_testBizTemplateA, () -> new BizTemplate<String>() {
             @Override
             protected void checkParams() throws BizException {
-                log.info("[BackDoorController.testBizTemplateA] checkParams 处理了，{},{}", this,
-                         System.identityHashCode(this));
+                log.info("[BackDoorController.testBizTemplateA] checkParams 处理了，{},{}", this, System.identityHashCode(this));
             }
 
             @Override
             protected String process() throws Exception {
-                log.info("[BackDoorController.testBizTemplateA] process 处理了，{},{}", this,
-                         System.identityHashCode(this));
+                log.info("[BackDoorController.testBizTemplateA] process 处理了，{},{}", this, System.identityHashCode(this));
                 return "成功了： " + this.hashCode();
             }
         }).execute();
@@ -77,14 +75,12 @@ public class TestController extends BaseController {
         return BizTemplatePool.get(Monitors.BackDoorController_testBizTemplateC, () -> new BizTemplate<String>() {
             @Override
             protected void checkParams() throws BizException {
-                log.info("[BackDoorController.testBizTemplateC] checkParams 处理了，{},{}", this,
-                         System.identityHashCode(this));
+                log.info("[BackDoorController.testBizTemplateC] checkParams 处理了，{},{}", this, System.identityHashCode(this));
             }
 
             @Override
             protected String process() throws Exception {
-                log.info("[BackDoorController.testBizTemplateC] process 处理了，{},{}", this,
-                         System.identityHashCode(this));
+                log.info("[BackDoorController.testBizTemplateC] process 处理了，{},{}", this, System.identityHashCode(this));
                 return "成功了： " + this.hashCode();
             }
         }).execute();
@@ -132,8 +128,7 @@ public class TestController extends BaseController {
     }
 
     @GetMapping("test/testGenerateAliasConfig")
-    public String testGenerateAliasConfig(@RequestParam("count") int count,
-                                          @RequestParam("aliasPrefix") String aliasPrefix,
+    public String testGenerateAliasConfig(@RequestParam("count") int count, @RequestParam("aliasPrefix") String aliasPrefix,
                                           @RequestParam("hostNamePrefix") String hostNamePrefix,
                                           @RequestParam("hostNameSuffix") String hostNameSuffix) {
         Preconditions.checkArgument(count > 0, "count 应该大于0");
@@ -145,9 +140,7 @@ public class TestController extends BaseController {
         final String user = "User songlinl";
         StringBuffer result = new StringBuffer();
         for (int i = 0; i <= count; i++) {
-            String stringBuffer =
-                    host + aliasPrefix + i + "\n" + hostName + hostNamePrefix + i + hostNameSuffix + "\n" + user +
-                            "\n\n";
+            String stringBuffer = host + aliasPrefix + i + "\n" + hostName + hostNamePrefix + i + hostNameSuffix + "\n" + user + "\n\n";
             System.out.println(stringBuffer);
             result.append(stringBuffer);
         }

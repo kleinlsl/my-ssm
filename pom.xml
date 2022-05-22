@@ -30,7 +30,7 @@
         <project.build.lombok.version>1.18.12</project.build.lombok.version>
         <project.build.junit.version>4.12</project.build.junit.version>
         <project.build.log4j12.version>1.7.5</project.build.log4j12.version>
-        <aspectj.version>1.9.2</aspectj.version>
+        <aspectj.version>1.8.9</aspectj.version>
         <redis.version>2.9.0</redis.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -195,7 +195,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
-            <version>2.1.1</version>
+            <version>3.1.0</version>
             <exclusions>
                 <exclusion>
                     <artifactId>slf4j-api</artifactId>

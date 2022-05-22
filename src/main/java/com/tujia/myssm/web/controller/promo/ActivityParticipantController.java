@@ -1,4 +1,4 @@
-package com.tujia.myssm.web.controller;
+package com.tujia.myssm.web.controller.promo;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.tujia.myssm.web.controller;
+package com.tujia.myssm.web.controller.lock;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.tujia.framework.api.APIResponse;
 import com.tujia.myssm.common.utils.JsonUtils;
+import com.tujia.myssm.web.controller.BaseController;
 import com.tujia.myssm.web.lock.Idempotent;
 import com.tujia.myssm.web.lock.LockSupport;
 import com.tujia.myssm.web.lock.generator.LockParam;
