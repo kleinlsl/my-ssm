@@ -12,28 +12,28 @@
 
     <context:property-placeholder location="classpath:config.properties" file-encoding="UTF-8"/>
 
-    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
-        <mvc:message-converters>
-            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
-            <bean id="mappingJacksonHttpMessageConverter"
-                  class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="objectMapper" ref="objectMapper"/>
-                <property name="supportedMediaTypes">
-                    <list>
-                        <value>text/html;charset=UTF-8</value>
-                        <value>application/json;charset=UTF-8</value>
-                        <value>application/javascript;charset=UTF-8</value>
-                        <value>text/plain;charset=UTF-8</value>
-                    </list>
-                </property>
-            </bean>
-        </mvc:message-converters>
-    </mvc:annotation-driven>
-    <bean id="objectMapper" class="com.tujia.myssm.common.utils.JsonUtils"
-          factory-method="getObjectMapperInstance"/>
-    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
-        <property name="favorPathExtension" value="false"/>
-    </bean>
+    <!--    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">-->
+    <!--        <mvc:message-converters>-->
+    <!--            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>-->
+    <!--            <bean id="mappingJacksonHttpMessageConverter"-->
+    <!--                  class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
+    <!--                <property name="objectMapper" ref="objectMapper"/>-->
+    <!--                <property name="supportedMediaTypes">-->
+    <!--                    <list>-->
+    <!--                        <value>text/html;charset=UTF-8</value>-->
+    <!--                        <value>application/json;charset=UTF-8</value>-->
+    <!--                        <value>application/javascript;charset=UTF-8</value>-->
+    <!--                        <value>text/plain;charset=UTF-8</value>-->
+    <!--                    </list>-->
+    <!--                </property>-->
+    <!--            </bean>-->
+    <!--        </mvc:message-converters>-->
+    <!--    </mvc:annotation-driven>-->
+    <!--    <bean id="objectMapper" class="com.tujia.myssm.common.utils.JsonUtils"-->
+    <!--          factory-method="getObjectMapperInstance"/>-->
+    <!--    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">-->
+    <!--        <property name="favorPathExtension" value="false"/>-->
+    <!--    </bean>-->
 
     <context:component-scan base-package="com.tujia.myssm.web.aop"/>
     <context:component-scan base-package="com.tujia.myssm.web.config"/>

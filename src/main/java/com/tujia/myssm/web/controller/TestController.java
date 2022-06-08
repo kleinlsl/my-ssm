@@ -1,22 +1,35 @@
 package com.tujia.myssm.web.controller;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.context.AnalysisContext;
+import com.alibaba.excel.event.AnalysisEventListener;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
+import com.tujia.framework.api.APIResponse;
+import com.tujia.myssm.api.model.SimpleExcel;
 import com.tujia.myssm.api.model.excel.UnitIdsExcelDownload;
 import com.tujia.myssm.base.BizTemplate;
 import com.tujia.myssm.base.BizTemplatePool;
 import com.tujia.myssm.base.exception.BizException;
 import com.tujia.myssm.base.monitor.Monitors;
+import com.tujia.myssm.common.utils.Joiners;
 import com.tujia.myssm.common.utils.JsonUtils;
 import com.tujia.myssm.common.utils.date.DateTimeRange;
 import com.tujia.myssm.service.impl.RedisUtilServiceImpl;
@@ -152,4 +165,38 @@ public class TestController extends BaseController {
         return null;
     }
 
+    @PostMapping(value = "/uploadFile.htm", produces = "application/json")
+    @ResponseBody
+    public APIResponse<String> uploadFile(HttpServletRequest request, @RequestParam("file") MultipartFile file) throws IOException {
+
+        try {
+            if (Objects.isNull(file)) {
+                return APIResponse.returnFail("上传文件不能为空");
+            }
+            //获取原始文件名
+            String originalFilename = file.getOriginalFilename();
+            log.info("上传的文件名为:{}", originalFilename);
+
+            List<SimpleExcel> excelList = Lists.newArrayList();
+            EasyExcel.read(file.getInputStream(), SimpleExcel.class, new AnalysisEventListener<SimpleExcel>() {
+
+                @Override
+                public void invoke(SimpleExcel data, AnalysisContext context) {
+                    if (data != null) {
+                        excelList.add(data);
+                    }
+                }
+
+                @Override
+                public void doAfterAllAnalysed(AnalysisContext context) {
+
+                }
+            }).sheet().doRead();
+            return APIResponse.returnFail(Joiners.COMMA_JOINER.skipNulls().join(excelList));
+        } catch (Exception e) {
+            log.error("error:", e);
+            return APIResponse.returnFail(e.getMessage());
+        }
+
+    }
 }
