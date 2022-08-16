@@ -1,6 +1,9 @@
 package com.tujia.myssm.test;
 
+import java.io.IOException;
+import org.junit.Test;
 import com.tujia.myssm.cache.CacheModels;
+import com.tujia.myssm.utils.ProtoJsonUtils;
 
 /**
  *
@@ -9,7 +12,13 @@ import com.tujia.myssm.cache.CacheModels;
  */
 public class testProtobuf {
 
-    public void testStudent() {
-        CacheModels.Student.Builder student = CacheModels.Student.newBuilder();
+    @Test
+    public void testStudent() throws IOException {
+        CacheModels.Student student = CacheModels.Student.newBuilder().setScore(CacheModels.BDecimal.newBuilder().setScale(1).build()).build();
+
+        System.out.println("student = " + student);
+
+        String json = ProtoJsonUtils.toJson(student);
+        System.out.println("json = " + json);
     }
 }

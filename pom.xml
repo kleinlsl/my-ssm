@@ -35,7 +35,7 @@
         <logback.version>1.2.0</logback.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <proto.version>3.5.0</proto.version>
+        <proto.version>3.4.0</proto.version>
         <!--        <tc_xdriver_connector_version>1.6.4</tc_xdriver_connector_version>-->
     </properties>
 
@@ -77,11 +77,6 @@
             <version>3.1.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-            <version>${proto.version}</version>
-        </dependency>
 
         <!-- spring mvc -->
         <dependency>
@@ -196,7 +191,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
-            <version>3.1.0</version>
+            <version>3.1.1</version>
             <exclusions>
                 <exclusion>
                     <artifactId>slf4j-api</artifactId>
@@ -364,6 +359,16 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java-util</artifactId>
+            <version>3.21.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${proto.version}</version>
+        </dependency>
 
     </dependencies>
 
@@ -398,27 +403,28 @@
             <extension>
                 <groupId>kr.motd.maven</groupId>
                 <artifactId>os-maven-plugin</artifactId>
-                <version>1.5.0.Final</version>
+                <version>1.6.0</version>
             </extension>
         </extensions>
         <plugins>
             <plugin>
                 <groupId>org.xolstice.maven.plugins</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
-                <version>0.5.1</version>
-                <extensions>true</extensions>
+                <version>0.6.1</version>
                 <executions>
                     <execution>
                         <goals>
                             <goal>compile</goal>
                             <goal>test-compile</goal>
                         </goals>
-                        <configuration>
-                            <protocArtifact>com.google.protobuf:protoc:${proto.version}:exe:${os.detected.classifier}
-                            </protocArtifact>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <protocArtifact>com.google.protobuf:protoc:3.4.0:exe:${os.detected.classifier}</protocArtifact>
+                    <pluginId>protoc-java</pluginId>
+                    <outputDirectory>${project.basedir}/src/main/resources</outputDirectory>
+                    <clearOutputDirectory>true</clearOutputDirectory>
+                </configuration>
             </plugin>
         </plugins>
     </build>
