@@ -1,0 +1,31 @@
+syntax = "proto3";
+package com.tujia.myssm.cache;
+
+message Book{
+  int64 id = 1;
+  string name = 2;
+  string amount = 3;
+  repeated string pages = 4;
+
+  PaymentType type = 5;
+  Page page = 6;
+  PaymentType payType = 7;
+
+  map<string, string> sm = 8;
+
+}
+
+message Page{
+  int32 num = 1;
+  string name = 2;
+}
+
+//付款方式（现付 全额预付） com.tujia.tns.product.api.enums.PayType
+enum PaymentType {
+  //默认
+  PAYMENT_TYPE_NONE = 0;
+  //全额预付
+  PROXY = 1;
+  //现付
+  CASH = 2;
+}

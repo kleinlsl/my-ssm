@@ -6,9 +6,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
 import com.alibaba.excel.EasyExcel;
@@ -16,6 +19,7 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.tujia.framework.api.APIResponse;
 import com.tujia.myssm.api.model.SimpleExcel;
 import com.tujia.myssm.common.utils.Joiners;
@@ -59,13 +63,13 @@ public class HttpTest {
     }
 
     @Test
-    public void testPrice() throws IOException {
+    public void testGetMapping() throws IOException {
         String url = "http://l-hds-task1.rd.tj.cna:8080/schedule/elonghotel/getV2Mapping.htm?vhotelIds=";
-        String fileName = "C:\\Users\\songlinl\\Desktop\\新建文件夹\\001.xlsx";
+        String fileName = "C:\\Users\\songlinl\\Desktop\\新建文件夹\\2022-08-19\\getMapping.xlsx";
         List<SimpleExcel> excelList = SimpleExcelUtils.simpleRead(fileName);
-        List<String> unitIdList = excelList.stream().map(SimpleExcel::getFirst).collect(Collectors.toList());
-        //        List<String> unitIdList = Lists.newArrayList("17556328", "17369605");
-        List<List<String>> unitIdsList = Lists.partition(unitIdList, 100);
+        Set<String> excludeList = excelList.stream().map(SimpleExcel::getFirst).filter(v -> !NumberUtils.isNumber(v)).collect(Collectors.toSet());
+        Set<String> unitIdList = excelList.stream().map(SimpleExcel::getFirst).filter(NumberUtils::isNumber).collect(Collectors.toSet());
+        List<List<String>> unitIdsList = Lists.partition(Lists.newArrayList(unitIdList), 100);
         System.out.println("total = " + unitIdList.size());
         final int pageSize = unitIdsList.size();
         int index = 0;
@@ -86,22 +90,30 @@ public class HttpTest {
             index++;
         }
         System.out.println("end -----");
+        System.out.println("excludeList = " + Joiners.COMMA_JOINER.skipNulls().join(excludeList));
 
     }
 
     @Test
     public void pushPrice() throws IOException {
         String url = "http://l-hds-task1.rd.tj.cna:8080/schedule/elonghotel/pushPrice.htm?unitId=";
-        String fileName = "C:\\Users\\songlinl\\Desktop\\新建文件夹\\pushPrice.xlsx";
+        String fileName = "C:\\Users\\songlinl\\Desktop\\新建文件夹\\2022-08-19\\pushPrice.xlsx";
         List<SimpleExcel> excelList = SimpleExcelUtils.simpleRead(fileName);
-        List<String> datas = excelList.stream().map(SimpleExcel::getFirst).collect(Collectors.toList());
+        List<String> datas = excelList.stream().filter(s -> NumberUtils.isNumber(s.getSecond())).map(SimpleExcel::getFirst).collect(
+                Collectors.toList());
         System.out.println("total = " + datas.size());
         final int pageSize = datas.size();
         int index = 0;
+        long sleep = 500L;
+        Map<String, String> errorMap = Maps.newHashMap();
         for (String val : datas) {
-            System.out.println("pageSize = " + pageSize + "  ->  index = " + index);
+            log.info("pageSize = " + pageSize + "  ->  index = " + index);
+            if (index < 35731) {
+                index++;
+                continue;
+            }
             try {
-                TimeUnit.MILLISECONDS.sleep(1000L);
+                TimeUnit.MILLISECONDS.sleep(sleep);
             } catch (Exception e) {
                 log.error("sleep is error", e);
             }
@@ -111,13 +123,13 @@ public class HttpTest {
             String reqUrl = url + val.trim();
             APIResponse response = sendReq(reqUrl);
             if (response == null || !response.isRet()) {
-                System.out.println("reqUrl = " + reqUrl);
-                System.out.println("response = " + JsonUtils.tryToJson(response));
+                errorMap.put(val.trim(), response == null ? "response is null" : response.getErrmsg());
             }
             index++;
         }
-        System.out.println("end -----");
 
+        log.info("{}", JsonUtils.tryToJson(errorMap));
+        System.out.println("end -----");
     }
 
     @Test
