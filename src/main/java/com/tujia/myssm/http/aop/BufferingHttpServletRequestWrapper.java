@@ -21,7 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.DelegatingServletInputStream;
-import org.springframework.util.Assert;
 import org.springframework.util.StreamUtils;
 import com.google.common.base.Suppliers;
 import lombok.Getter;
@@ -45,13 +44,12 @@ public final class BufferingHttpServletRequestWrapper extends HttpServletRequest
     public BufferingHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);
         buffer = read(request);
-        Assert.notNull(buffer);
         memoizedRequest = Suppliers.memoize(() -> {
             String req = new String(buffer, StandardCharsets.UTF_8);
             HttpMethod method = HttpMethod.valueOf(request.getMethod());
             if (method.equals(HttpMethod.GET)) {
                 try {
-                    req = getInputStreamFromParameters(request);
+                    req = getReqestLog(request);
                 } catch (IOException e) {
                     LOG.error("is error", e);
                 }
@@ -90,7 +88,7 @@ public final class BufferingHttpServletRequestWrapper extends HttpServletRequest
         throw new IllegalArgumentException("requestUri:" + requestUri + ", request_body_read_error");
     }
 
-    private String getInputStreamFromParameters(HttpServletRequest request) throws IOException {
+    private String getReqestLog(HttpServletRequest request) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         Writer writer = new OutputStreamWriter(bos, StandardCharsets.UTF_8);
         try {

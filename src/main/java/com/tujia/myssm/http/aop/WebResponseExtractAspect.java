@@ -24,7 +24,7 @@ public class WebResponseExtractAspect {
     /**
      * 定义切点
      */
-    @Pointcut("@annotation(org.springframework.web.bind.annotation.RequestMapping) && (@within(org.springframework.stereotype.Controller) || @within(org.springframework.web.bind.annotation.RestController))")
+    @Pointcut("(@within(org.springframework.stereotype.Controller) || @within(org.springframework.web.bind.annotation.RestController))")
     public void pc() {
     }
 
