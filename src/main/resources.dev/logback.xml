@@ -11,6 +11,11 @@
             <pattern>${normal-pattern}</pattern>
             <charset>${encoding}</charset>
         </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.dir}/catalina.bak.%d{yyyy-MM-dd-HH:mm}.log
+            </fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
     </appender>
 
     <appender name="errorAppender"
@@ -23,7 +28,7 @@
             <pattern>${normal-pattern}</pattern>
             <charset>${encoding}</charset>
         </encoder>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <rollingPolicy class="ch.qos.logback.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy">
             <fileNamePattern>${log.dir}/error.%d{yyyy-MM-dd}.log
             </fileNamePattern>
             <maxHistory>30</maxHistory>
@@ -31,7 +36,7 @@
     </appender>
 
     <appender name="bizBaseAppender"
-              class="ch.qos.logback.core.rolling.TjRollingFileAppender">
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
         <Append>true</Append>
         <encoder>
             <pattern>${normal-pattern}</pattern>

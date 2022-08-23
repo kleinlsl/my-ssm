@@ -1,4 +1,4 @@
-package com.tujia.myssm.web.controller;
+package com.tujia.myssm.web.controller.promo;
 
 import java.util.List;
 import javax.annotation.Resource;

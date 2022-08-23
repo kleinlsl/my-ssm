@@ -1,12 +1,8 @@
 package ch.qos.logback.core.rolling;
 
 import java.util.List;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.spi.LoggingEvent;
 import ch.qos.logback.core.encoder.LayoutWrappingEncoder;
 import com.alibaba.dubbo.common.logger.Logger;
 import com.alibaba.dubbo.common.logger.LoggerFactory;
@@ -18,12 +14,6 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
  */
 public class TjRollingFileAppender<E> extends RollingFileAppender<E> {
     private static final Logger LOG = LoggerFactory.getLogger(TjRollingFileAppender.class);
-    private static final ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(4, 4, 0L, TimeUnit.NANOSECONDS,
-                                                                                        new LinkedBlockingQueue<>(100),
-                                                                                        new ThreadFactoryBuilder()
-                                                                                                .setNameFormat(
-                                                                                                        "system_default_%d")
-                                                                                                .build());
 
     private static final List<TjRollingFileAppender> APPENDERS = Lists.newArrayList();
 
@@ -63,18 +53,14 @@ public class TjRollingFileAppender<E> extends RollingFileAppender<E> {
      */
     @Override
     protected void subAppend(E event) {
-        doMessage(event);
+        if (this.isStarted()) {
+            processMessage(event);
+        }
         super.subAppend(event);
     }
 
-    private void doMessage(E event) {
-        System.err.println("getLogMsg(event) = " + getLogMsg(event));
-        LoggingEvent loggingEvent = (LoggingEvent) event;
-        if (loggingEvent.getLevel().isGreaterOrEqual(Level.ERROR)) {
-            threadPoolExecutor.execute(() -> {
-                System.err.println("msg = " + getLogMsg(event));
-            });
-        }
+    public void processMessage(E event) {
+
     }
 
     /**
@@ -82,7 +68,10 @@ public class TjRollingFileAppender<E> extends RollingFileAppender<E> {
      * @param event
      * @return
      */
-    private String getLogMsg(E event) {
-        return ((LayoutWrappingEncoder<E>) this.encoder).getLayout().doLayout(event);
+    protected String getLogMsg(E event) {
+        if (this.encoder instanceof LayoutWrappingEncoder) {
+            return ((LayoutWrappingEncoder<E>) this.encoder).getLayout().doLayout(event);
+        }
+        return null;
     }
 }

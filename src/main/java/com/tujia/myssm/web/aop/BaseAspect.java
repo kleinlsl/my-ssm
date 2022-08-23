@@ -1,6 +1,7 @@
 package com.tujia.myssm.web.aop;
 
 import java.io.IOException;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import org.aspectj.lang.JoinPoint;
 import com.tujia.myssm.web.utils.RequestUtil;
@@ -14,10 +15,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BaseAspect {
 
-    protected void httpRequestLog(JoinPoint joinPoint) throws IOException {
+    protected void httpRequestLog(JoinPoint joinPoint) throws IOException, ServletException {
         HttpServletRequest request = RequestUtil.httpServletRequest();
         log.info("[BaseAspect.doBefore] {}.{} : {}", getClassName(joinPoint), getMethodName(joinPoint),
                  RequestUtil.logRequest(request));
+        log.info("[BaseAspect.doBefore] {}.{} : {}", getClassName(joinPoint), getMethodName(joinPoint),
+                 RequestUtil.getRequestInfo(request));
     }
 
     /**

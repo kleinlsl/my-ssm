@@ -5,12 +5,17 @@
     <property name="encoding" value="UTF-8"/>
     <property name="normal-pattern"
               value="%d{yyyy-MM-dd.HH:mm:ss.SSS} %-5level TraceId[%X{traceId}] [%thread] [%logger{0}.%M:%L] - %msg%n"/>
-    ß
+
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${normal-pattern}</pattern>
             <charset>${encoding}</charset>
         </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.dir}/catalina.bak.%d{yyyy-MM-dd-HH:mm}.log
+            </fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
     </appender>
 
     <appender name="errorAppender"
@@ -31,14 +36,28 @@
     </appender>
 
     <appender name="bizBaseAppender"
-              class="ch.qos.logback.core.rolling.TjRollingFileAppender">
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Append>true</Append>
+        <encoder>
+            <pattern>${normal-pattern}</pattern>
+            <charset>${encoding}</charset>
+        </encoder>
+        <file>${log.dir}/my-ssm.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.dir}/my-ssm.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="webFilterAppender"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
         <Append>true</Append>
         <encoder>
             <pattern>${normal-pattern}</pattern>
             <charset>${encoding}</charset>
         </encoder>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log.dir}/my-ssm.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${log.dir}/web-filter.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
     </appender>
@@ -48,6 +67,12 @@
         <includeCallerData>true</includeCallerData>
         <appender-ref ref="bizBaseAppender"/>
     </appender>
+
+    <logger name="web-filter-log" level="INFO" additivity="false">
+        <appender-ref ref="webFilterAppender"/>
+        <appender-ref ref="errorAppender"/>
+        <appender-ref ref="consoleAppender"/>
+    </logger>
 
     <logger name="com.tujia.myssm" level="INFO" additivity="false">
         <appender-ref ref="bizAsyncAppender"/>

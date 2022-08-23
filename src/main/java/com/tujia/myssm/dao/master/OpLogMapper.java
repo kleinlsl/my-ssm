@@ -14,4 +14,6 @@ public interface OpLogMapper {
 
     OpLog selectById(@Param("id") long id);
 
+    int insertOrUpdate(OpLog opLog);
+
 }

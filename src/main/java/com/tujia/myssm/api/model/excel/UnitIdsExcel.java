@@ -7,9 +7,8 @@ package com.tujia.myssm.api.model.excel;
 
 import java.io.Serializable;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.alibaba.excel.metadata.BaseRowModel;
 
-public class UnitIdsExcel extends BaseRowModel implements Serializable {
+public class UnitIdsExcel implements Serializable {
     private static final long serialVersionUID = 8919456316743595940L;
 
     @ExcelProperty(index = 0)
@@ -25,8 +24,6 @@ public class UnitIdsExcel extends BaseRowModel implements Serializable {
 
     @Override
     public String toString() {
-        return "UnitIdsExcel{" +
-                "unitId='" + unitId + '\'' +
-                "} " + super.toString();
+        return "UnitIdsExcel{" + "unitId='" + unitId + '\'' + "} " + super.toString();
     }
 }

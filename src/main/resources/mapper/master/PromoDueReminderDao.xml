@@ -41,12 +41,8 @@
             now()
         </trim>
         ON DUPLICATE KEY UPDATE
-        <trim suffixOverrides=",">
-            <if test="pojo.memberId > 0">`member_id` = #{pojo.memberId},</if>
-            <if test="pojo.promoCode != null">`promo_code` = #{pojo.promoCode},</if>
-            <if test="pojo.toTime != null">`to_time` = #{pojo.toTime},</if>
-            `number` = `number` + 1
-        </trim>
+        promo_code = values(promo_code),
+        to_time = values(to_time)
     </insert>
     <!--
     explain select * from promo_due_reminder where member_id=73294 and promo_code="PRP-27B028C5-2CD2-49CA-9D9A-03E4CABD9BDD" ;
