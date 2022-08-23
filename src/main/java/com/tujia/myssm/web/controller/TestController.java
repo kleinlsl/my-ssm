@@ -164,7 +164,7 @@ public class TestController extends BaseController {
         return null;
     }
 
-    @RequestMapping(value = "/uploadFile", produces = "application/json")
+    @PostMapping(value = "/uploadFile", produces = "application/json")
     public APIResponse<String> uploadFile(HttpServletRequest request, @RequestParam("file") MultipartFile file) throws IOException {
 
         try {
@@ -197,4 +197,39 @@ public class TestController extends BaseController {
         }
 
     }
+
+    @PostMapping(value = "/uploadFile.htm", produces = "application/json")
+    public APIResponse<String> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+
+        try {
+            if (Objects.isNull(file)) {
+                return APIResponse.returnFail("上传文件不能为空");
+            }
+            //获取原始文件名
+            String originalFilename = file.getOriginalFilename();
+            log.info("上传的文件名为:{}", originalFilename);
+
+            List<SimpleExcel> excelList = Lists.newArrayList();
+            EasyExcel.read(file.getInputStream(), SimpleExcel.class, new AnalysisEventListener<SimpleExcel>() {
+
+                @Override
+                public void invoke(SimpleExcel data, AnalysisContext context) {
+                    if (data != null) {
+                        excelList.add(data);
+                    }
+                }
+
+                @Override
+                public void doAfterAllAnalysed(AnalysisContext context) {
+
+                }
+            }).sheet().doRead();
+            return APIResponse.returnFail(Joiners.COMMA_JOINER.skipNulls().join(excelList));
+        } catch (Exception e) {
+            log.error("error:", e);
+            return APIResponse.returnFail(e.getMessage());
+        }
+
+    }
+
 }

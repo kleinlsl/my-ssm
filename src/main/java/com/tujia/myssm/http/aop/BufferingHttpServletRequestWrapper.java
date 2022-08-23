@@ -10,8 +10,8 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -24,18 +24,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.DelegatingServletInputStream;
 import org.springframework.util.Assert;
 import org.springframework.util.StreamUtils;
-import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
-import com.google.common.collect.Lists;
 import lombok.Getter;
-import static org.apache.http.entity.ContentType.APPLICATION_ATOM_XML;
-import static org.apache.http.entity.ContentType.APPLICATION_JSON;
-import static org.apache.http.entity.ContentType.APPLICATION_SVG_XML;
-import static org.apache.http.entity.ContentType.APPLICATION_XHTML_XML;
-import static org.apache.http.entity.ContentType.APPLICATION_XML;
-import static org.apache.http.entity.ContentType.TEXT_HTML;
-import static org.apache.http.entity.ContentType.TEXT_PLAIN;
-import static org.apache.http.entity.ContentType.TEXT_XML;
 
 /**
  * local servlet request wrapper
@@ -45,9 +35,6 @@ import static org.apache.http.entity.ContentType.TEXT_XML;
 public final class BufferingHttpServletRequestWrapper extends HttpServletRequestWrapper {
     public static final String UTF_8 = "UTF-8";
     private static final Logger LOG = LoggerFactory.getLogger(BufferingHttpServletRequestWrapper.class);
-    private static final List<ContentType> CONTENT_TYPES = Lists.newArrayList(APPLICATION_ATOM_XML, APPLICATION_JSON, APPLICATION_SVG_XML,
-                                                                              APPLICATION_XHTML_XML, APPLICATION_XML, TEXT_HTML, TEXT_PLAIN,
-                                                                              TEXT_XML);
 
     /**
      * request buffer
@@ -67,7 +54,7 @@ public final class BufferingHttpServletRequestWrapper extends HttpServletRequest
             } catch (UnsupportedEncodingException e) {
                 throw new RuntimeException(e);
             }
-        });
+        })::get;
     }
 
     @Override
@@ -88,23 +75,28 @@ public final class BufferingHttpServletRequestWrapper extends HttpServletRequest
             final ServletInputStream inputStream;
             switch (HttpMethod.valueOf(request.getMethod())) {
                 case POST:
-                    inputStream = isRequestBodyPost(request) ? request.getInputStream() : getInputStreamFromParameters(request);
+                    boolean isBody = isRequestBodyPost(request);
+                    if (isBody) {
+                        inputStream = request.getInputStream();
+                    } else {
+                        inputStream = getInputStreamFromParameters(request);
+                    }
                     break;
-
-                default:
+                case GET:
                     inputStream = getInputStreamFromParameters(request);
+                    break;
+                default:
+                    inputStream = request.getInputStream();
+                    break;
             }
             buffer = StreamUtils.copyToByteArray(inputStream);
-            //            TMonitor.recordOne("request_read_success");
             return buffer;
         } catch (Exception e) {
-            //            TMonitor.recordOne("request_read_error");
             LOG.error("requestURI:" + requestURI + ", request_read_error", e);
         } finally {
             try {
                 IOUtils.closeQuietly(request.getInputStream());
             } catch (IOException e) {
-                //                TMonitor.recordOne("request_stream_close_error");
                 LOG.error("requestURI:" + requestURI + ", request_stream_close_error", e);
             }
         }
