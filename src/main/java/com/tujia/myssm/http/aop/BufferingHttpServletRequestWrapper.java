@@ -6,8 +6,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.entity.ContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
@@ -33,7 +32,6 @@ import lombok.Getter;
  * @create 2022-08-15 16:48
  */
 public final class BufferingHttpServletRequestWrapper extends HttpServletRequestWrapper {
-    public static final String UTF_8 = "UTF-8";
     private static final Logger LOG = LoggerFactory.getLogger(BufferingHttpServletRequestWrapper.class);
 
     /**
@@ -49,11 +47,16 @@ public final class BufferingHttpServletRequestWrapper extends HttpServletRequest
         buffer = read(request);
         Assert.notNull(buffer);
         memoizedRequest = Suppliers.memoize(() -> {
-            try {
-                return new String(buffer, UTF_8);
-            } catch (UnsupportedEncodingException e) {
-                throw new RuntimeException(e);
+            String req = new String(buffer, StandardCharsets.UTF_8);
+            HttpMethod method = HttpMethod.valueOf(request.getMethod());
+            if (method.equals(HttpMethod.GET)) {
+                try {
+                    req = getInputStreamFromParameters(request);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+            return req;
         })::get;
     }
 
@@ -72,23 +75,7 @@ public final class BufferingHttpServletRequestWrapper extends HttpServletRequest
         String requestURI = StringUtils.removeEnd(request.getRequestURI(), "/");
         final byte[] buffer;
         try {
-            final ServletInputStream inputStream;
-            switch (HttpMethod.valueOf(request.getMethod())) {
-                case POST:
-                    boolean isBody = isRequestBodyPost(request);
-                    if (isBody) {
-                        inputStream = request.getInputStream();
-                    } else {
-                        inputStream = getInputStreamFromParameters(request);
-                    }
-                    break;
-                case GET:
-                    inputStream = getInputStreamFromParameters(request);
-                    break;
-                default:
-                    inputStream = request.getInputStream();
-                    break;
-            }
+            final ServletInputStream inputStream = request.getInputStream();
             buffer = StreamUtils.copyToByteArray(inputStream);
             return buffer;
         } catch (Exception e) {
@@ -103,9 +90,9 @@ public final class BufferingHttpServletRequestWrapper extends HttpServletRequest
         throw new IllegalArgumentException("requestURI:" + requestURI + ", request_body_read_error");
     }
 
-    private ServletInputStream getInputStreamFromParameters(HttpServletRequest request) throws IOException {
+    private String getInputStreamFromParameters(HttpServletRequest request) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        Writer writer = new OutputStreamWriter(bos, UTF_8);
+        Writer writer = new OutputStreamWriter(bos, StandardCharsets.UTF_8);
         try {
             Map<String, String[]> form = request.getParameterMap();
             for (Iterator<Map.Entry<String, String[]>> entryIterator = form.entrySet().iterator(); entryIterator.hasNext(); ) {
@@ -139,13 +126,8 @@ public final class BufferingHttpServletRequestWrapper extends HttpServletRequest
             }
         }
 
-        return new DelegatingServletInputStream(new ByteArrayInputStream(bos.toByteArray()));
+        return bos.toString();
     }
 
-    private boolean isRequestBodyPost(HttpServletRequest request) {
-        return request.getContentType() != null && !StringUtils.containsIgnoreCase(request.getContentType(),
-                                                                                   ContentType.APPLICATION_FORM_URLENCODED.getMimeType()) &&
-                HttpMethod.POST.name().equalsIgnoreCase(request.getMethod());
-    }
 
 }
