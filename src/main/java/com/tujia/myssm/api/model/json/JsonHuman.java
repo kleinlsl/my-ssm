@@ -10,9 +10,8 @@ import lombok.Data;
  * @create: 2021/12/27 16:59
  */
 @Data
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
-@JsonSubTypes({ @JsonSubTypes.Type(value = JsonHuman.Man.class, name = "man"),
-        @JsonSubTypes.Type(value = JsonHuman.Woman.class, name = "woman") })
+@JsonTypeInfo(use = JsonTypeInfo.Id.CUSTOM, include = JsonTypeInfo.As.PROPERTY, property = "type", visible = true)
+@JsonSubTypes({ @JsonSubTypes.Type(value = JsonHuman.Man.class, name = "man"), @JsonSubTypes.Type(value = JsonHuman.Woman.class, name = "woman") })
 public abstract class JsonHuman {
     private String district;
 
