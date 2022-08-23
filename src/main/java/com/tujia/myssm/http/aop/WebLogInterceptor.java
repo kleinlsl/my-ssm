@@ -70,16 +70,12 @@ public class WebLogInterceptor implements HandlerInterceptor {
                 LOG.info(logBuilder.toString(), logParams.toArray());
             }
         } catch (Exception e) {
-            //            TMonitor.recordOne(monitorKey + "_Handle_Exp");
             throw e;
         }
     }
 
     private void monitor(String monitorKey, long timeCost, boolean success) {
-        if (!success) {
-            //            TMonitor.recordOne(monitorKey + "_Error");
-        }
-        //        TMonitor.recordOne(monitorKey + "_Execute", timeCost);
+
     }
 
     protected boolean needLogResp(HttpServletRequest request) {

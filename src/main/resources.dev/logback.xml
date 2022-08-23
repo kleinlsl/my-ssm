@@ -36,7 +36,7 @@
     </appender>
 
     <appender name="bizBaseAppender"
-              class="com.tujia.myssm.common.logback.appender.MyAppender">
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
         <Append>true</Append>
         <encoder>
             <pattern>${normal-pattern}</pattern>
