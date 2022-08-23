@@ -53,7 +53,7 @@ public final class BufferingHttpServletRequestWrapper extends HttpServletRequest
                 try {
                     req = getInputStreamFromParameters(request);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LOG.error("is error", e);
                 }
             }
             return req;
@@ -72,22 +72,22 @@ public final class BufferingHttpServletRequestWrapper extends HttpServletRequest
     }
 
     private byte[] read(HttpServletRequest request) {
-        String requestURI = StringUtils.removeEnd(request.getRequestURI(), "/");
+        String requestUri = StringUtils.removeEnd(request.getRequestURI(), "/");
         final byte[] buffer;
         try {
             final ServletInputStream inputStream = request.getInputStream();
             buffer = StreamUtils.copyToByteArray(inputStream);
             return buffer;
         } catch (Exception e) {
-            LOG.error("requestURI:" + requestURI + ", request_read_error", e);
+            LOG.error("requestUri:" + requestUri + ", request_read_error", e);
         } finally {
             try {
                 IOUtils.closeQuietly(request.getInputStream());
             } catch (IOException e) {
-                LOG.error("requestURI:" + requestURI + ", request_stream_close_error", e);
+                LOG.error("requestUri:" + requestUri + ", request_stream_close_error", e);
             }
         }
-        throw new IllegalArgumentException("requestURI:" + requestURI + ", request_body_read_error");
+        throw new IllegalArgumentException("requestUri:" + requestUri + ", request_body_read_error");
     }
 
     private String getInputStreamFromParameters(HttpServletRequest request) throws IOException {
@@ -128,6 +128,5 @@ public final class BufferingHttpServletRequestWrapper extends HttpServletRequest
 
         return bos.toString();
     }
-
 
 }
