@@ -7,6 +7,7 @@ import lombok.Setter;
 
 /**
  * https://www.jianshu.com/p/a21f1633d79c
+ * https://stackoverflow.com/questions/45447276/what-are-jsontypeinfo-and-jsonsubtypes-used-for-in-jackson
  * @author: songlinl
  * @create: 2022/08/22 15:48
  */
