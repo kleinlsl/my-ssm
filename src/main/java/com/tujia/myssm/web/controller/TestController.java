@@ -238,4 +238,9 @@ public class TestController extends BaseController {
         return APIResponse.returnSuccess(EmojiUtils.filterUtf8Mb4(source));
     }
 
+    @RequestMapping(value = "/requestBody")
+    public APIResponse<String> requestBody(@RequestBody String source) {
+        return APIResponse.returnSuccess(source);
+    }
+
 }
