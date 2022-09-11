@@ -52,7 +52,7 @@
             now()
         </trim>
         ON DUPLICATE KEY UPDATE
-        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <trim suffixOverrides=",">
             <if test="pojo.memberId > 0">`member_id` = #{pojo.memberId},</if>
             <if test="pojo.promoCode != null">`promo_code` = #{pojo.promoCode},</if>
             <if test="pojo.activityChannelId > 0">`activity_channel_id` = #{pojo.activityChannelId},</if>

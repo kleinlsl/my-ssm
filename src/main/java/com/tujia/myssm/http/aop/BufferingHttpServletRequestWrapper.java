@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.DelegatingServletInputStream;
+import org.springframework.util.Assert;
 import org.springframework.util.StreamUtils;
 import com.google.common.base.Suppliers;
 import lombok.Getter;
@@ -44,6 +45,7 @@ public final class BufferingHttpServletRequestWrapper extends HttpServletRequest
     public BufferingHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);
         buffer = read(request);
+        Assert.notNull(buffer);
         memoizedRequest = Suppliers.memoize(() -> {
             String req = new String(buffer, StandardCharsets.UTF_8);
             HttpMethod method = HttpMethod.valueOf(request.getMethod());

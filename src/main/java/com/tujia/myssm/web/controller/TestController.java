@@ -32,6 +32,7 @@ import com.tujia.myssm.common.utils.Joiners;
 import com.tujia.myssm.common.utils.JsonUtils;
 import com.tujia.myssm.common.utils.date.DateTimeRange;
 import com.tujia.myssm.service.impl.RedisUtilServiceImpl;
+import com.tujia.myssm.web.utils.EmojiUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -230,6 +231,16 @@ public class TestController extends BaseController {
             return APIResponse.returnFail(e.getMessage());
         }
 
+    }
+
+    @PostMapping(value = "/emoji/filter")
+    public APIResponse<String> emojiFilter(@RequestBody String source) {
+        return APIResponse.returnSuccess(EmojiUtils.filterUtf8Mb4(source));
+    }
+
+    @RequestMapping(value = "/requestBody")
+    public APIResponse<String> requestBody(@RequestBody String source) {
+        return APIResponse.returnSuccess(source);
     }
 
 }
