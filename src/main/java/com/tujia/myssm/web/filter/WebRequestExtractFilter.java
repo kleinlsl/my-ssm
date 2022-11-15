@@ -1,4 +1,4 @@
-package com.tujia.myssm.http.aop;
+package com.tujia.myssm.web.filter;
 
 import java.io.IOException;
 import javax.servlet.FilterChain;
@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.filter.OncePerRequestFilter;
+import static com.tujia.myssm.web.interceptor.WebLogInterceptor.ORIGINAL_REQUEST;
 
 /**
  * GET/POST 请求提取, 数据流可多次读取, 无需手动配置，自动配置！！！
@@ -16,7 +17,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
  */
 @WebFilter(filterName = "webRequestExtractFilter", urlPatterns = { "/*" }, asyncSupported = true)
 public final class WebRequestExtractFilter extends OncePerRequestFilter {
-    public static final String ORIGINAL_REQUEST = "original_request";
 
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
