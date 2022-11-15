@@ -1,10 +1,6 @@
 package com.tujia.myssm.web.backdoor;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,11 +9,6 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.Test;
-import org.springframework.web.client.RestTemplate;
-import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.context.AnalysisContext;
-import com.alibaba.excel.event.AnalysisEventListener;
-import com.alibaba.excel.support.ExcelTypeEnum;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.tujia.framework.api.APIResponse;
@@ -40,7 +31,7 @@ public class HttpTest {
 
     private static APIResponse sendReq(String reqUrl) throws IOException {
         try {
-            String json = tClient.httpGet(reqUrl);
+            String json = tClient.httpGet(reqUrl, 5000, 5000);
             return JsonUtils.readValue(json, APIResponse.class);
         } catch (Exception e) {
             log.error("is exception", e);
@@ -65,7 +56,7 @@ public class HttpTest {
     @Test
     public void testGetMapping() throws IOException {
         String url = "http://l-hds-task1.rd.tj.cna:8080/schedule/elonghotel/getV2Mapping.htm?vhotelIds=";
-        String fileName = "C:\\Users\\songlinl\\Desktop\\新建文件夹\\2022-08-19\\getMapping.xlsx";
+        String fileName = "C:\\Users\\songlinl\\Desktop\\新建文件夹\\2022-11-01\\getMapping.xlsx";
         List<SimpleExcel> excelList = SimpleExcelUtils.simpleRead(fileName);
         Set<String> excludeList = excelList.stream().map(SimpleExcel::getFirst).filter(v -> !NumberUtils.isNumber(v)).collect(Collectors.toSet());
         Set<String> unitIdList = excelList.stream().map(SimpleExcel::getFirst).filter(NumberUtils::isNumber).collect(Collectors.toSet());
@@ -140,33 +131,5 @@ public class HttpTest {
         }
     }
 
-    @Test
-    public void hex() {
-        Long max = Long.MAX_VALUE;
-        System.out.println(max);
-        System.out.println(Long.toHexString(max));
-    }
 
-    @Test
-    public void testExcel() throws FileNotFoundException {
-        String url = "https://pic301.beta.tujia.com/direct/mnbp/redpacketExcelFiles/20220729_100077_75c360bd5aa64cf3abf5a23fdc4823f1.xlsx";
-        RestTemplate restTemplate = new RestTemplate();
-        byte[] download = restTemplate.getForObject(url, byte[].class);
-        InputStream inputStream = new BufferedInputStream(new ByteArrayInputStream(download));
-        //        String fileName = "C:\\Users\\songlinl\\Downloads\\20220729_100077_75c360bd5aa64cf3abf5a23fdc4823f1.xlsx";
-        //        inputStream = new BufferedInputStream(new FileInputStream(fileName));
-        EasyExcel.read(inputStream, SimpleExcel.class, new AnalysisEventListener<SimpleExcel>() {
-
-            @Override
-            public void invoke(SimpleExcel data, AnalysisContext context) {
-                System.out.println("data = " + JsonUtils.tryToJson(data));
-            }
-
-            @Override
-            public void doAfterAllAnalysed(AnalysisContext context) {
-
-            }
-        }).excelType(ExcelTypeEnum.XLSX).sheet().doRead();
-        System.out.println("url = " + url);
-    }
 }

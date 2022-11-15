@@ -1,4 +1,4 @@
-package com.tujia.myssm.web.aop;
+package com.tujia.myssm.web.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

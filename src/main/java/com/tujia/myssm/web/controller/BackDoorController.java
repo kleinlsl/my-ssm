@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tujia.framework.api.APIResponse;
 import com.tujia.myssm.api.model.excel.UnitIdsExcel;
 import com.tujia.myssm.common.utils.JsonUtils;
-import com.tujia.myssm.web.aop.UserIdentify;
+import com.tujia.myssm.web.annotation.UserIdentify;
 import lombok.extern.slf4j.Slf4j;
 
 /**

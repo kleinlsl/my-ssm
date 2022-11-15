@@ -1,4 +1,4 @@
-package com.tujia.myssm.http.aop;
+package com.tujia.myssm.web.aop;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

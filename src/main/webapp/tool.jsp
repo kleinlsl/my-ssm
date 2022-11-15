@@ -1,3 +1,7 @@
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="org.springframework.context.ApplicationContext" %>
+<%@ page import="org.springframework.web.context.support.WebApplicationContextUtils" %>
 <%@ page contentType="text/html;charset=gb2312" %>
 <html>
 <head>
@@ -86,6 +90,7 @@
     <title>后台工具汇总</title>
     <meta name="content-type" content="text/html;charset=UTF-8"/>
 </head>
+
 <body>
 <br/>
 <p align="center">红包运营工具汇总</p>
@@ -95,6 +100,12 @@
         <th width="30%">工具名</th>
         <th width="70%">说明</th>
     </tr>
+
+    <%
+        out.print(renderToolTables(request));
+        out.print("============================================");
+    %>
+
     <tr>
         <td><a target="_blank"
                href="http://tpromo.tujia.com/tpromo/backdoor/getCouponFromCache.htm?wrapperId=waptujia001&customerActiveType=1&cityId=133&smart=false">查看缓存券</a>
@@ -233,3 +244,25 @@
 </div>
 </body>
 </html>
+
+<tr>
+    <td><a target="_blank"
+           href="http://tpromo.tujia.com/tpromo/backdoor/getCouponFromCache.htm?wrapperId=waptujia001&customerActiveType=1&cityId=133&smart=false">查看缓存券</a>
+    </td>
+    <td>查看实际对外漏出的缓存券，smart参数表示是否查询智能红包券smart=true表示查询智能红包券</td>
+</tr>
+<%! String renderToolTables(HttpServletRequest request) {
+    StringBuilder builder = new StringBuilder("renderToolTables");
+    String template = "<tr>\n" + "    <td><a target=\"_blank\"\n" + " href=\"%s\">%s</a>\n" + "    </td>\n" +
+            "    <td>%s</td>\n" + "</tr>";
+    ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(request.getServletContext());
+    String domain = "http://localhost:8080/my-ssm";
+    Map<String, String> uri2Name = new HashMap<String, String>();
+    uri2Name.put("/index.jsp", "首页");
+    for (Map.Entry<String, String> entry : uri2Name.entrySet()) {
+        builder.append("\n");
+        builder.append(String.format(template, domain + entry.getKey(), entry.getValue(), entry.getValue()));
+    }
+
+    return builder.toString();
+}%>

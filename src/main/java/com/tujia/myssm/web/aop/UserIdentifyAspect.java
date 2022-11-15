@@ -15,6 +15,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
+import com.tujia.myssm.web.annotation.UserIdentify;
 import com.tujia.myssm.web.context.RequestContext;
 import com.tujia.myssm.web.context.model.LoginInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserIdentifyAspect extends BaseAspect {
 
-    @Pointcut("@annotation(com.tujia.myssm.web.aop.UserIdentify)")
+    @Pointcut("@annotation(com.tujia.myssm.web.annotation.UserIdentify)")
     public void controllerAspect() {
     }
 

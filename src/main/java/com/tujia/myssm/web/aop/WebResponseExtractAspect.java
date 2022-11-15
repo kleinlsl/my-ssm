@@ -1,4 +1,4 @@
-package com.tujia.myssm.http.aop;
+package com.tujia.myssm.web.aop;
 
 import javax.servlet.http.HttpServletRequest;
 import org.aspectj.lang.annotation.AfterReturning;
