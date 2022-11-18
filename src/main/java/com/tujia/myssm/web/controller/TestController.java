@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +23,8 @@ import com.alibaba.excel.event.AnalysisEventListener;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.tujia.framework.api.APIResponse;
+import com.tujia.myssm.api.model.OpLog;
+import com.tujia.myssm.api.model.OpLogDetail;
 import com.tujia.myssm.api.model.SimpleExcel;
 import com.tujia.myssm.api.model.excel.UnitIdsExcelDownload;
 import com.tujia.myssm.base.BizTemplate;
@@ -32,6 +35,7 @@ import com.tujia.myssm.common.utils.Joiners;
 import com.tujia.myssm.common.utils.JsonUtils;
 import com.tujia.myssm.common.utils.date.DateTimeRange;
 import com.tujia.myssm.service.impl.RedisUtilServiceImpl;
+import com.tujia.myssm.web.controller.biz.TestTx;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -229,6 +233,22 @@ public class TestController extends BaseController {
             log.error("error:", e);
             return APIResponse.returnFail(e.getMessage());
         }
+
+    }
+
+    @Resource
+    private TestTx testTx;
+
+    @GetMapping(value = "testTx")
+    @ResponseBody
+    public void testTx() {
+        List<OpLog> opLogs = Lists.newArrayList();
+        opLogs.add(OpLog.builder().operator("Deadlock").detail(OpLogDetail.builder().summary("1").build()).build());
+        opLogs.add(OpLog.builder().operator("Deadlock1").detail(OpLogDetail.builder().summary("11").build()).build());
+        opLogs.add(OpLog.builder().operator("Deadlock2").detail(OpLogDetail.builder().summary("12").build()).build());
+        opLogs.add(OpLog.builder().operator("Deadlock3").detail(OpLogDetail.builder().summary("13").build()).build());
+
+        testTx.batchUpdate(opLogs);
 
     }
 

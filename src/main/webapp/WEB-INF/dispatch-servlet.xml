@@ -65,7 +65,7 @@
             <mvc:exclude-mapping path="/alive.html"/>
             <mvc:exclude-mapping path="/favicon.ico"/>
             <mvc:exclude-mapping path="*/swagger-resources/*"/>
-            <bean class="com.tujia.myssm.http.aop.WebLogInterceptor"/>
+            <bean class="com.tujia.myssm.web.interceptor.WebLogInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>

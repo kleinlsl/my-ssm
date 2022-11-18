@@ -7,7 +7,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.tujia.myssm.api.enums.EnumOpType;
 import com.tujia.myssm.common.utils.serializer.LocalDateTimeDeserializer;
 import com.tujia.myssm.common.utils.serializer.LocalDateTimeSerializer;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -17,6 +20,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class OpLog implements Serializable {
 
     private static final long serialVersionUID = 1667438215591533610L;

@@ -13,21 +13,21 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-    <filter>
-        <filter-name>WebLogFilter</filter-name>
-        <filter-class>com.tujia.myssm.web.filter.WebFilter</filter-class>
-        <init-param>
-            <param-name>exclusions</param-name>
-            <param-value>
-                *.html,*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*,/monitor/*,/js/*,/index.jsp,/healthcheck.html
-            </param-value>
-        </init-param>
-    </filter>
+    <!--    <filter>-->
+    <!--        <filter-name>WebLogFilter</filter-name>-->
+    <!--        <filter-class>com.tujia.myssm.web.filter.WebFilter</filter-class>-->
+    <!--        <init-param>-->
+    <!--            <param-name>exclusions</param-name>-->
+    <!--            <param-value>-->
+    <!--                *.html,*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*,/monitor/*,/js/*,/index.jsp,/healthcheck.html-->
+    <!--            </param-value>-->
+    <!--        </init-param>-->
+    <!--    </filter>-->
 
-    <filter-mapping>
-        <filter-name>WebLogFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    <!--    <filter-mapping>-->
+    <!--        <filter-name>WebLogFilter</filter-name>-->
+    <!--        <url-pattern>/*</url-pattern>-->
+    <!--    </filter-mapping>-->
 
 
     <servlet-mapping>

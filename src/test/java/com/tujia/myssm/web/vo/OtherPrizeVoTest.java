@@ -16,7 +16,7 @@ public class OtherPrizeVoTest {
 
     @Test
     public void read() {
-        String fileName = "C:\\Users\\songlinl\\Desktop\\抽奖\\轮播图\\转盘氛围条轮播 - 样例.xlsx";
+        String fileName = "C:\\Users\\songlinl\\Desktop\\抽奖\\轮播图\\转盘氛围条轮播-221117-TClhPT6goZpA.xlsx";
         List<SimpleExcel> excelList = SimpleExcelUtils.simpleRead(fileName);
         List<OtherPrizeVo> prizeVos = excelList.stream().map(this::convert).collect(Collectors.toList());
         System.out.println(JsonUtils.tryToJson(prizeVos));
