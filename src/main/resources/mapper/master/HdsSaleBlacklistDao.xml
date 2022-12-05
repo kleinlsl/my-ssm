@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tujia.myssm.dao.master.HdsSaleBlacklistDao">
+    <resultMap id="AllColumnMap" type="com.tujia.myssm.api.model.HdsSaleBlacklist">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="date_ranges" property="dateRanges"
+                typeHandler="com.tujia.myssm.common.db.handlers.LocalDateRangeSetHandler"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <sql id="all_column">
+        `id`,
+        `unit_id`,
+        `sale_channel`,
+        `date_ranges`,
+        `status`,
+        `data_entity_status`,
+        `create_time`,
+        `update_time`
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `hds_sale_blacklist`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.dateRanges != null">`date_ranges`,</if>
+            `create_time`,
+            `update_time`
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.dateRanges != null">#{pojo.dateRanges},</if>
+            now(),
+            now()
+        </trim>
+    </insert>
+    <select id="queryAll" resultMap="AllColumnMap">
+        select
+        <include refid="all_column"/>
+        from hds_sale_blacklist
+    </select>
+
+
+</mapper>
