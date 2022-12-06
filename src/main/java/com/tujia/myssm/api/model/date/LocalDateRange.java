@@ -1,4 +1,4 @@
-package com.tujia.myssm.api.model.base;
+package com.tujia.myssm.api.model.date;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -6,7 +6,7 @@ import java.util.Objects;
 import static com.tujia.myssm.common.utils.Symbol.UNDERLINE;
 
 /**
- *
+ * LocalDate 日期段，双闭区间
  * @author: songlinl
  * @create: 2022/12/05 17:13
  */
@@ -29,6 +29,21 @@ public class LocalDateRange implements Serializable, Comparable<LocalDateRange> 
         }
         this.st = st;
         this.et = et;
+    }
+
+    /**
+     * 判断当前日期段是否包含某个日期
+     * @param current
+     * @return
+     */
+    public boolean contains(LocalDate current) {
+        if (current == null || this.st == null || this.et == null) {
+            return false;
+        }
+        if (current.isBefore(this.getSt()) || current.isAfter(this.getEt())) {
+            return false;
+        }
+        return true;
     }
 
     public static LocalDateRange parse(String value) {

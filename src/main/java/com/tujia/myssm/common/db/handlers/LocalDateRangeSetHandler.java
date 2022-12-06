@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
-import com.tujia.myssm.api.model.base.LocalDateRangeSet;
+import com.tujia.myssm.api.model.date.LocalDateRangeSet;
 import lombok.extern.slf4j.Slf4j;
 
 /**

@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.tujia.myssm.api.model.base.LocalDateRangeSet;
+import com.tujia.myssm.api.model.date.LocalDateRangeSet;
 
 /**
  *

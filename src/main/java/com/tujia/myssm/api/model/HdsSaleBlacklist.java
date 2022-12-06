@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.tujia.myssm.api.model.base.LocalDateRangeSet;
+import com.tujia.myssm.api.model.date.LocalDateRangeSet;
 import com.tujia.myssm.common.utils.serializer.LocalDateRangeSetSerializer;
 import lombok.Data;
 
