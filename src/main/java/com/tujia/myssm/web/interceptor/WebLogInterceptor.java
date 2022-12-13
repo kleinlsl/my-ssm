@@ -11,7 +11,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import com.google.common.collect.Lists;
 import com.tujia.myssm.common.utils.JsonUtils;
-import com.tujia.myssm.web.utils.IPUtils;
+import com.tujia.myssm.web.utils.IpUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -67,7 +67,7 @@ public class WebLogInterceptor implements HandlerInterceptor {
 
             StringBuilder logBuilder = new StringBuilder();
             logBuilder.append("web request uri:{}, success:{}, timeCost:{}ms, remoteIP:{}, method:{}, contentType:{}, request:{}");
-            ArrayList<Object> logParams = Lists.newArrayList(requestURI, success, timeCost, IPUtils.getRemoteIp(request), request.getMethod(),
+            ArrayList<Object> logParams = Lists.newArrayList(requestURI, success, timeCost, IpUtils.getRemoteIp(request), request.getMethod(),
                                                              contentType, requestStr);
 
             boolean needLogResp = needLogResp(request);

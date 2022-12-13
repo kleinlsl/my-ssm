@@ -120,4 +120,14 @@ public class RedisUtilServiceImpl implements RedisUtilService {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public long incr(String key) {
+        return getJedis().incr(key);
+    }
+
+    @Override
+    public long incrAndJudge(String key, long expx) {
+        return 0;
+    }
 }

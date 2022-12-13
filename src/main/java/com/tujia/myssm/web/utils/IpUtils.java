@@ -1,5 +1,12 @@
 package com.tujia.myssm.web.utils;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.InterfaceAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import sun.net.util.IPAddressUtil;
@@ -8,7 +15,32 @@ import sun.net.util.IPAddressUtil;
  * Created by shuhaoz
  * 2017/06/21 19:19
  */
-public class IPUtils {
+public class IpUtils {
+
+    /**
+     * 直接根据第一个网卡地址作为其内网ipv4地址，避免返回 127.0.0.1
+     *
+     * @return
+     */
+    public static String getLocalIpByNetcard() {
+        try {
+            for (Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces(); e.hasMoreElements(); ) {
+                NetworkInterface item = e.nextElement();
+                for (InterfaceAddress address : item.getInterfaceAddresses()) {
+                    if (item.isLoopback() || !item.isUp()) {
+                        continue;
+                    }
+                    if (address.getAddress() instanceof Inet4Address) {
+                        Inet4Address inet4Address = (Inet4Address) address.getAddress();
+                        return inet4Address.getHostAddress();
+                    }
+                }
+            }
+            return InetAddress.getLocalHost().getHostAddress();
+        } catch (SocketException | UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static boolean internalIp(String ip) {
         if (StringUtils.equalsIgnoreCase(ip, "127.0.0.1") || StringUtils.equalsIgnoreCase(ip, "0:0:0:0:0:0:0:1")) {
