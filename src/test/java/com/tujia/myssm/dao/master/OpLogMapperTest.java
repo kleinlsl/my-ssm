@@ -9,7 +9,7 @@ import com.tujia.myssm.api.enums.EnumOpType;
 import com.tujia.myssm.api.model.DefaultOpLogMark;
 import com.tujia.myssm.api.model.OpLog;
 import com.tujia.myssm.api.model.OpLogDetail;
-import com.tujia.myssm.common.utils.JsonUtils;
+import com.tujia.myssm.utils.base.JsonUtils;
 
 /**
  *

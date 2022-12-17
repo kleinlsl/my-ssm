@@ -4,7 +4,7 @@
     <resultMap id="AllColumnMap" type="com.tujia.myssm.api.model.HdsSaleBlacklist">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="date_ranges" property="dateRanges"
-                typeHandler="com.tujia.myssm.common.db.handlers.LocalDateRangeSetHandler"/>
+                typeHandler="com.tujia.myssm.common.date.typehandler.LocalDateRangeSetHandler"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>

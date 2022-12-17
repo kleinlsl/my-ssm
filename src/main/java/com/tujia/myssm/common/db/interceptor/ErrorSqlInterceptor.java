@@ -12,7 +12,7 @@ import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
-import com.tujia.myssm.common.utils.JsonUtils;
+import com.tujia.myssm.utils.base.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**

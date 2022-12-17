@@ -25,15 +25,15 @@ import com.google.common.collect.Lists;
 import com.tujia.framework.api.APIResponse;
 import com.tujia.myssm.api.model.OpLog;
 import com.tujia.myssm.api.model.OpLogDetail;
-import com.tujia.myssm.api.model.SimpleExcel;
+import com.tujia.myssm.api.model.excel.SimpleExcelModel;
 import com.tujia.myssm.api.model.excel.UnitIdsExcelDownload;
 import com.tujia.myssm.base.BizTemplate;
 import com.tujia.myssm.base.BizTemplatePool;
 import com.tujia.myssm.base.exception.BizException;
 import com.tujia.myssm.base.monitor.Monitors;
-import com.tujia.myssm.common.utils.Joiners;
-import com.tujia.myssm.common.utils.JsonUtils;
-import com.tujia.myssm.common.utils.date.DateTimeRange;
+import com.tujia.myssm.utils.base.Joiners;
+import com.tujia.myssm.utils.base.JsonUtils;
+import com.tujia.myssm.common.date.DateTimeRange;
 import com.tujia.myssm.service.impl.RedisUtilServiceImpl;
 import com.tujia.myssm.web.controller.biz.TestTx;
 import lombok.extern.slf4j.Slf4j;
@@ -179,11 +179,11 @@ public class TestController extends BaseController {
             String originalFilename = file.getOriginalFilename();
             log.info("上传的文件名为:{}", originalFilename);
 
-            List<SimpleExcel> excelList = Lists.newArrayList();
-            EasyExcel.read(file.getInputStream(), SimpleExcel.class, new AnalysisEventListener<SimpleExcel>() {
+            List<SimpleExcelModel> excelList = Lists.newArrayList();
+            EasyExcel.read(file.getInputStream(), SimpleExcelModel.class, new AnalysisEventListener<SimpleExcelModel>() {
 
                 @Override
-                public void invoke(SimpleExcel data, AnalysisContext context) {
+                public void invoke(SimpleExcelModel data, AnalysisContext context) {
                     if (data != null) {
                         excelList.add(data);
                     }
@@ -213,11 +213,11 @@ public class TestController extends BaseController {
             String originalFilename = file.getOriginalFilename();
             log.info("上传的文件名为:{}", originalFilename);
 
-            List<SimpleExcel> excelList = Lists.newArrayList();
-            EasyExcel.read(file.getInputStream(), SimpleExcel.class, new AnalysisEventListener<SimpleExcel>() {
+            List<SimpleExcelModel> excelList = Lists.newArrayList();
+            EasyExcel.read(file.getInputStream(), SimpleExcelModel.class, new AnalysisEventListener<SimpleExcelModel>() {
 
                 @Override
-                public void invoke(SimpleExcel data, AnalysisContext context) {
+                public void invoke(SimpleExcelModel data, AnalysisContext context) {
                     if (data != null) {
                         excelList.add(data);
                     }

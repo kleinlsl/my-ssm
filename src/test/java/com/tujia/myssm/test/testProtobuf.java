@@ -14,8 +14,8 @@ import com.tujia.myssm.api.model.proto.PayType;
 import com.tujia.myssm.cache.BookModels;
 import com.tujia.myssm.cache.CacheModels;
 import com.tujia.myssm.utils.ByteUtils;
-import com.tujia.myssm.utils.ProtoJsonUtils;
-import com.tujia.myssm.utils.SerializationUtil;
+import com.tujia.myssm.utils.proto.ProtoJsonUtils;
+import com.tujia.myssm.utils.proto.SerializationUtil;
 
 /**
  *

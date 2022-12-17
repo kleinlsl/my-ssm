@@ -15,8 +15,8 @@ import org.springframework.cache.interceptor.SimpleKeyGenerator;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 import com.google.common.base.Preconditions;
-import com.tujia.myssm.common.utils.Joiners;
-import com.tujia.myssm.common.utils.JsonUtils;
+import com.tujia.myssm.utils.base.Joiners;
+import com.tujia.myssm.utils.base.JsonUtils;
 import com.tujia.myssm.service.RedisUtilService;
 import com.tujia.myssm.web.lock.generator.LockParam;
 

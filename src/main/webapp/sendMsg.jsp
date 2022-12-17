@@ -1,6 +1,6 @@
 <%@ page import="org.springframework.context.ApplicationContext" %>
 <%@ page import="org.springframework.web.context.support.WebApplicationContextUtils" %>
-<%@ page import="com.tujia.myssm.common.utils.JsonUtils"%>
+<%@ page import="com.tujia.myssm.utils.base.JsonUtils"%>
 <%@page session="false"%>
 <%@page	contentType="text/plain;charset=UTF-8" language="java"%>
 <%

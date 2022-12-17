@@ -12,11 +12,11 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.tujia.framework.api.APIResponse;
-import com.tujia.myssm.api.model.SimpleExcel;
-import com.tujia.myssm.common.utils.Joiners;
-import com.tujia.myssm.common.utils.JsonUtils;
+import com.tujia.myssm.api.model.excel.SimpleExcelModel;
+import com.tujia.myssm.utils.base.Joiners;
+import com.tujia.myssm.utils.base.JsonUtils;
 import com.tujia.myssm.http.HttpClientInvoker;
-import com.tujia.myssm.utils.SimpleExcelUtils;
+import com.tujia.myssm.utils.excel.SimpleExcelUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -49,7 +49,7 @@ public class HttpTest {
     @Test
     public void simpleRead() {
         String fileName = "C:\\Users\\songlinl\\Downloads\\20220729_100077_5459dcf975a743f9b95a0d290efaff35.xlsx";
-        List<SimpleExcel> excelList = SimpleExcelUtils.simpleRead(fileName);
+        List<SimpleExcelModel> excelList = SimpleExcelUtils.simpleRead(fileName);
         System.out.println(JsonUtils.tryToJson(excelList));
     }
 
@@ -57,9 +57,9 @@ public class HttpTest {
     public void testGetMapping() throws IOException {
         String url = "http://l-hds-task1.rd.tj.cna:8080/schedule/elonghotel/getV2Mapping.htm?vhotelIds=";
         String fileName = "C:\\Users\\songlinl\\Desktop\\新建文件夹\\2022-11-01\\getMapping.xlsx";
-        List<SimpleExcel> excelList = SimpleExcelUtils.simpleRead(fileName);
-        Set<String> excludeList = excelList.stream().map(SimpleExcel::getFirst).filter(v -> !NumberUtils.isNumber(v)).collect(Collectors.toSet());
-        Set<String> unitIdList = excelList.stream().map(SimpleExcel::getFirst).filter(NumberUtils::isNumber).collect(Collectors.toSet());
+        List<SimpleExcelModel> excelList = SimpleExcelUtils.simpleRead(fileName);
+        Set<String> excludeList = excelList.stream().map(SimpleExcelModel::getFirst).filter(v -> !NumberUtils.isNumber(v)).collect(Collectors.toSet());
+        Set<String> unitIdList = excelList.stream().map(SimpleExcelModel::getFirst).filter(NumberUtils::isNumber).collect(Collectors.toSet());
         List<List<String>> unitIdsList = Lists.partition(Lists.newArrayList(unitIdList), 100);
         System.out.println("total = " + unitIdList.size());
         final int pageSize = unitIdsList.size();
@@ -89,8 +89,8 @@ public class HttpTest {
     public void pushPrice() throws IOException {
         String url = "http://l-hds-task1.rd.tj.cna:8080/schedule/elonghotel/pushPrice.htm?unitId=";
         String fileName = "C:\\Users\\songlinl\\Desktop\\新建文件夹\\2022-08-19\\pushPrice.xlsx";
-        List<SimpleExcel> excelList = SimpleExcelUtils.simpleRead(fileName);
-        List<String> datas = excelList.stream().filter(s -> NumberUtils.isNumber(s.getSecond())).map(SimpleExcel::getFirst).collect(
+        List<SimpleExcelModel> excelList = SimpleExcelUtils.simpleRead(fileName);
+        List<String> datas = excelList.stream().filter(s -> NumberUtils.isNumber(s.getSecond())).map(SimpleExcelModel::getFirst).collect(
                 Collectors.toList());
         System.out.println("total = " + datas.size());
         final int pageSize = datas.size();

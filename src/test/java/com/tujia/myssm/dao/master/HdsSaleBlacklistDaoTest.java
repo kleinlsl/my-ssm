@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import com.tujia.myssm.BaseTest;
 import com.tujia.myssm.api.model.HdsSaleBlacklist;
-import com.tujia.myssm.common.utils.JsonUtils;
+import com.tujia.myssm.utils.base.JsonUtils;
 
 /**
  *

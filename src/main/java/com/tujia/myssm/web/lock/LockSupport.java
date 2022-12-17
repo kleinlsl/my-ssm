@@ -1,8 +1,8 @@
 package com.tujia.myssm.web.lock;
 
 import java.util.concurrent.TimeUnit;
-import com.tujia.myssm.common.utils.ApplicationContextUtil;
-import com.tujia.myssm.common.utils.Joiners;
+import com.tujia.myssm.common.ApplicationContextUtil;
+import com.tujia.myssm.utils.base.Joiners;
 import com.tujia.myssm.service.RedisUtilService;
 import com.tujia.myssm.web.lock.generator.LockParam;
 import lombok.extern.slf4j.Slf4j;

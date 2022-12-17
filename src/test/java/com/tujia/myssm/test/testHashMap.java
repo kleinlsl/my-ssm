@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.Map;
 import org.junit.Test;
 import com.google.common.collect.Maps;
-import com.tujia.myssm.common.utils.JsonUtils;
+import com.tujia.myssm.utils.base.JsonUtils;
 
 /**
  *

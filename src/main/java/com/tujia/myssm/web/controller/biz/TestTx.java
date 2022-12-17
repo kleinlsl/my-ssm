@@ -6,7 +6,7 @@ import org.springframework.dao.DeadlockLoserDataAccessException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import com.tujia.myssm.api.model.OpLog;
-import com.tujia.myssm.common.utils.JsonUtils;
+import com.tujia.myssm.utils.base.JsonUtils;
 import com.tujia.myssm.dao.master.OpLogMapper;
 import lombok.extern.slf4j.Slf4j;
 

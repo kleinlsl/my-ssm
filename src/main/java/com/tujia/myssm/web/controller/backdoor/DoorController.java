@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
 import com.tujia.framework.api.APIResponse;
-import com.tujia.myssm.common.utils.JsonUtils;
+import com.tujia.myssm.utils.base.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**

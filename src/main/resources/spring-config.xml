@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-    <bean id="applicationContextUtil" class="com.tujia.myssm.common.utils.ApplicationContextUtil"/>
+    <bean id="applicationContextUtil" class="com.tujia.myssm.common.ApplicationContextUtil"/>
 
     <import resource="classpath:spring/spring-context.xml"/>
     <import resource="classpath:spring/spring-bean.xml"/>

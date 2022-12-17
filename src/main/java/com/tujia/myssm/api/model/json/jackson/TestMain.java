@@ -1,6 +1,6 @@
 package com.tujia.myssm.api.model.json.jackson;
 
-import com.tujia.myssm.common.utils.JsonUtils;
+import com.tujia.myssm.utils.base.JsonUtils;
 
 /**
  *

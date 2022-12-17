@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import com.google.common.collect.Lists;
-import com.tujia.myssm.common.utils.JsonUtils;
+import com.tujia.myssm.utils.base.JsonUtils;
 import com.tujia.myssm.web.utils.IpUtils;
 import lombok.extern.slf4j.Slf4j;
 

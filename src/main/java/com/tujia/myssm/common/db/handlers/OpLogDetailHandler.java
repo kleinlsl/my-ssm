@@ -11,7 +11,7 @@ import com.tujia.framework.handlers.JsonTypeHandler;
 import com.tujia.myssm.api.model.DefaultOpLogMark;
 import com.tujia.myssm.api.model.OpLogDetail;
 import com.tujia.myssm.api.model.OpLogMark;
-import com.tujia.myssm.common.utils.JsonUtils;
+import com.tujia.myssm.utils.base.JsonUtils;
 
 /**
  *

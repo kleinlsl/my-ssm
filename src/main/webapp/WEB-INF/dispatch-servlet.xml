@@ -29,7 +29,7 @@
     <!--            </bean>-->
     <!--        </mvc:message-converters>-->
     <!--    </mvc:annotation-driven>-->
-    <!--    <bean id="objectMapper" class="com.tujia.myssm.common.utils.JsonUtils"-->
+    <!--    <bean id="objectMapper" class="com.tujia.myssm.utils.base.JsonUtils"-->
     <!--          factory-method="getObjectMapperInstance"/>-->
     <!--    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">-->
     <!--        <property name="favorPathExtension" value="false"/>-->
