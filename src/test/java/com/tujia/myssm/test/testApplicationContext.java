@@ -3,7 +3,7 @@ package com.tujia.myssm.test;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.tujia.myssm.cache.LocalCache;
+import com.tujia.myssm.core.cache.LocalCache;
 import redis.clients.jedis.Jedis;
 
 /**

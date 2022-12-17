@@ -1,4 +1,4 @@
-package com.tujia.myssm.web.lock;
+package com.tujia.myssm.core.lock;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

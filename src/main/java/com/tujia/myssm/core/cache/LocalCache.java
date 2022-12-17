@@ -1,4 +1,4 @@
-package com.tujia.myssm.cache;
+package com.tujia.myssm.core.cache;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
