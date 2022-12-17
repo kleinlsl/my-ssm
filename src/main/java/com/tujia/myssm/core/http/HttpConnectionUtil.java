@@ -1,4 +1,4 @@
-package com.tujia.myssm.http;
+package com.tujia.myssm.core.http;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

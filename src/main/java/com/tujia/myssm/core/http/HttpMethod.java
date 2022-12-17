@@ -1,4 +1,4 @@
-package com.tujia.myssm.http;
+package com.tujia.myssm.core.http;
 
 /**
  * Created by lizuju on 2017/9/21.
