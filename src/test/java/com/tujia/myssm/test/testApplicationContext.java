@@ -3,7 +3,7 @@ package com.tujia.myssm.test;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.tujia.myssm.core.cache.LocalCache;
+import com.tujia.myssm.core.cache.manage.CacheManage;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -21,10 +21,10 @@ public class testApplicationContext {
 
     @Test
     public void testGetBean() {
-        LocalCache localCache = null;
-        localCache = (LocalCache) application.getBean("localCache");
+        CacheManage localCache = null;
+        localCache = (CacheManage) application.getBean("cacheManage");
         System.out.println("localCache = " + localCache);
-        localCache = (LocalCache) application.getBean(LocalCache.class);
+        localCache = (CacheManage) application.getBean(CacheManage.class);
         System.out.println("localCache = " + localCache);
     }
 
