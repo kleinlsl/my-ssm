@@ -15,6 +15,7 @@ import redis.clients.jedis.JedisPool;
  */
 @Slf4j
 @Service
+@Deprecated
 public class RedisUtilServiceImpl implements RedisUtilService {
 
     @Resource

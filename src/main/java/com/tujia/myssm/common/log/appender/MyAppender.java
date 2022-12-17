@@ -4,7 +4,7 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.LoggingEvent;
 import ch.qos.logback.core.rolling.TjRollingFileAppender;
 import com.tujia.myssm.common.ApplicationContextUtil;
-import com.tujia.myssm.executor.EM;
+import com.tujia.myssm.core.executor.EM;
 import com.tujia.myssm.service.CommonService;
 
 /**

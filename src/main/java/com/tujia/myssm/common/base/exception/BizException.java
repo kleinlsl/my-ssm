@@ -1,4 +1,4 @@
-package com.tujia.myssm.base.exception;
+package com.tujia.myssm.common.base.exception;
 
 
 /**

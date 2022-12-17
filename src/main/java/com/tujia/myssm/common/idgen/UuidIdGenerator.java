@@ -1,7 +1,7 @@
 package com.tujia.myssm.common.idgen;
 
 import java.util.UUID;
-import com.tujia.myssm.base.exception.BizException;
+import com.tujia.myssm.common.base.exception.BizException;
 
 /**
  *

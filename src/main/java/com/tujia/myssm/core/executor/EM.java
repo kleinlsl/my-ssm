@@ -1,4 +1,4 @@
-package com.tujia.myssm.executor;
+package com.tujia.myssm.core.executor;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

@@ -7,6 +7,7 @@ import java.util.Map;
  * @author: songlinl
  * @create: 2022/01/26 16:49
  */
+@Deprecated
 public interface RedisUtilService {
 
     String set(String key, String value);

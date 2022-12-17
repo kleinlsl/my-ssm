@@ -42,4 +42,9 @@
         <constructor-arg name="soTimeout" type="int" value="${redis.socket.timeout}"/>
     </bean>
 
+    <bean id="tedis" class="com.tujia.myssm.core.Tedis">
+        <constructor-arg name="jedis" ref="jedis"/>
+        <constructor-arg name="jedisPool" ref="jedisPool"/>
+    </bean>
+
 </beans>

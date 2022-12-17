@@ -27,14 +27,9 @@ import com.tujia.myssm.api.model.OpLog;
 import com.tujia.myssm.api.model.OpLogDetail;
 import com.tujia.myssm.api.model.excel.SimpleExcelModel;
 import com.tujia.myssm.api.model.excel.UnitIdsExcelDownload;
-import com.tujia.myssm.base.BizTemplate;
-import com.tujia.myssm.base.BizTemplatePool;
-import com.tujia.myssm.base.exception.BizException;
-import com.tujia.myssm.base.monitor.Monitors;
+import com.tujia.myssm.service.impl.RedisUtilServiceImpl;
 import com.tujia.myssm.utils.base.Joiners;
 import com.tujia.myssm.utils.base.JsonUtils;
-import com.tujia.myssm.common.date.DateTimeRange;
-import com.tujia.myssm.service.impl.RedisUtilServiceImpl;
 import com.tujia.myssm.web.controller.biz.TestTx;
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,56 +46,6 @@ public class TestController extends BaseController {
     private RedisUtilServiceImpl redisUtilServiceImpl;
     @Resource
     private RestTemplate restTemplate;
-
-    @GetMapping("/biz/template")
-    public String testBizTemplate() {
-        return new BizTemplate<String>(Monitors.BackDoorController_testBizTemplate) {
-
-            @Override
-            protected void checkParams() throws BizException {
-
-            }
-
-            @Override
-            protected String process() throws Exception {
-                log.info("[BackDoorController.testBizTemplate] 处理了，{},{}", this, System.identityHashCode(this));
-                return null;
-            }
-
-        }.execute();
-    }
-
-    @GetMapping("/biz/template/a")
-    public String testBizTemplateA() {
-        return BizTemplatePool.get(Monitors.BackDoorController_testBizTemplateA, () -> new BizTemplate<String>() {
-            @Override
-            protected void checkParams() throws BizException {
-                log.info("[BackDoorController.testBizTemplateA] checkParams 处理了，{},{}", this, System.identityHashCode(this));
-            }
-
-            @Override
-            protected String process() throws Exception {
-                log.info("[BackDoorController.testBizTemplateA] process 处理了，{},{}", this, System.identityHashCode(this));
-                return "成功了： " + this.hashCode();
-            }
-        }).execute();
-    }
-
-    @GetMapping("/biz/template/C")
-    public String testBizTemplateC() {
-        return BizTemplatePool.get(Monitors.BackDoorController_testBizTemplateC, () -> new BizTemplate<String>() {
-            @Override
-            protected void checkParams() throws BizException {
-                log.info("[BackDoorController.testBizTemplateC] checkParams 处理了，{},{}", this, System.identityHashCode(this));
-            }
-
-            @Override
-            protected String process() throws Exception {
-                log.info("[BackDoorController.testBizTemplateC] process 处理了，{},{}", this, System.identityHashCode(this));
-                return "成功了： " + this.hashCode();
-            }
-        }).execute();
-    }
 
     @GetMapping("test")
     public UnitIdsExcelDownload test() {

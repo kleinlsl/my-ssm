@@ -1,10 +1,10 @@
-package com.tujia.myssm.base;
+package com.tujia.myssm.common.base.template;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.common.base.Strings;
-import com.tujia.myssm.base.exception.BizException;
-import com.tujia.myssm.base.monitor.MRegistry;
+import com.tujia.myssm.common.base.exception.BizException;
+import com.tujia.myssm.common.base.monitor.MRegistry;
 
 /**
  *

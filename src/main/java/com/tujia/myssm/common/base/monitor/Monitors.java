@@ -1,4 +1,4 @@
-package com.tujia.myssm.base.monitor;
+package com.tujia.myssm.common.base.monitor;
 
 /**
  * 监控总览
