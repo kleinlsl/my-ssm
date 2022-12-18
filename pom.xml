@@ -36,10 +36,16 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <proto.version>3.4.0</proto.version>
+        <java.object.diff.version>0.95</java.object.diff.version>
         <!--        <tc_xdriver_connector_version>1.6.4</tc_xdriver_connector_version>-->
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>de.danielbechler</groupId>
+            <artifactId>java-object-diff</artifactId>
+            <version>${java.object.diff.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>

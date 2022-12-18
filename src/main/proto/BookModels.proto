@@ -1,5 +1,5 @@
 syntax = "proto3";
-package com.tujia.myssm.cache;
+package com.tujia.myssm.core.cache.model;
 
 message Book{
   int64 id = 1;
