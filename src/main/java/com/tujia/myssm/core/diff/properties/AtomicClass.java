@@ -11,7 +11,7 @@ import com.google.common.base.Strings;
  */
 public class AtomicClass {
     public static String[] ATOMIC_CLASS_STR = new String[] { "com.tujia.framework.datetime.bean.ShortTime",
-            "com.tujia.framework.datetime.bean.ShortDate" };
+            "com.tujia.framework.datetime.bean.ShortDate", "java.time.LocalDateTime" };
 
     /**
      * 检查类是否是原子类

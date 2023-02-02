@@ -2,8 +2,11 @@ package com.tujia.myssm.api.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.tujia.myssm.api.enums.EnumOpType;
 import com.tujia.myssm.common.date.model.LocalDateRangeSet;
 import com.tujia.myssm.common.date.serializer.LocalDateRangeSetSerializer;
 import com.tujia.myssm.core.diff.annotation.Diff;
@@ -38,13 +41,17 @@ public class HdsSaleBlacklist implements Serializable {
     @JsonDeserialize(using = LocalDateRangeSetSerializer.Deserializer.class)
     private LocalDateRangeSet dateRanges;
 
-    private int status;
+    private EnumOpType status;
 
     private int dataEntityStatus;
 
-    @Diff("信用免押金")
+    @Diff("创建时间")
     private LocalDateTime createTime;
 
     private LocalDateTime updateTime;
 
+    @DiffIgnore
+    private Date date;
+
+    private List<LocalDateTime> timeList;
 }

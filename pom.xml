@@ -37,10 +37,16 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <proto.version>3.4.0</proto.version>
         <java.object.diff.version>0.95</java.object.diff.version>
+        <aviator.version>5.3.1</aviator.version>
         <!--        <tc_xdriver_connector_version>1.6.4</tc_xdriver_connector_version>-->
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.googlecode.aviator</groupId>
+            <artifactId>aviator</artifactId>
+            <version>${aviator.version}</version>
+        </dependency>
         <dependency>
             <groupId>de.danielbechler</groupId>
             <artifactId>java-object-diff</artifactId>
@@ -390,6 +396,12 @@
             <groupId>org.objenesis</groupId>
             <artifactId>objenesis</artifactId>
             <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>

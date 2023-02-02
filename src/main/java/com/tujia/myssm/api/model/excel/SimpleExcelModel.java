@@ -16,17 +16,21 @@ public class SimpleExcelModel {
     @IndexOrder()
     @ExcelProperty(index = 0)
     private String first;
-    @ExcelProperty(index = 0)
+
     @IndexOrder(index = 1)
+    @ExcelProperty(index = 1)
     private String second;
-    @ExcelProperty(index = 0)
+
     @IndexOrder(index = 2)
+    @ExcelProperty(index = 2)
     private String third;
-    @ExcelProperty(index = 0)
+
     @IndexOrder(index = 3)
+    @ExcelProperty(index = 3)
     private String fourth;
-    @ExcelProperty(index = 0)
+
     @IndexOrder(index = 4)
+    @ExcelProperty(index = 4)
     private String fifth;
 
 }
