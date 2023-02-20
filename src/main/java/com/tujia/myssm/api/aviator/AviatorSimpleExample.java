@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import com.google.common.collect.Maps;
 import com.googlecode.aviator.AviatorEvaluator;
+import com.tujia.myssm.api.aviator.function.TimeCompareFunction;
 
 /**
  *
@@ -12,6 +13,11 @@ import com.googlecode.aviator.AviatorEvaluator;
  * @create: 2022/12/26 14:34
  */
 public class AviatorSimpleExample {
+
+    static {
+        AviatorEvaluator.addFunction(new TimeCompareFunction());
+    }
+
     public static void main(String[] args) {
         //        Long result = (Long) AviatorEvaluator.execute("1+2+3");
         //        System.out.println(result);
@@ -22,7 +28,7 @@ public class AviatorSimpleExample {
         String result = (String) AviatorEvaluator.execute(" 'Hello ' + name ", env);
         System.out.println(result);
 
-        String expression = "a    >    b || a   <    b";
+        String expression = "time_compare(a,'a')>0||a    >    b || a   <    b ";
         Map<String, Object> envm = Maps.newHashMap();
         envm.put("a", 1);
         envm.put("b", 2);
