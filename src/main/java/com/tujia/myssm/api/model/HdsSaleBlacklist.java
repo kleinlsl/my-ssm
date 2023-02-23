@@ -39,7 +39,6 @@ public class HdsSaleBlacklist implements Serializable {
     @Diff("信用免押金")
     private String saleChannel;
 
-    @Atomic
     @JsonSerialize(using = LocalDateRangeSetSerializer.Serializer.class)
     @JsonDeserialize(using = LocalDateRangeSetSerializer.Deserializer.class)
     private LocalDateRangeSet dateRanges;

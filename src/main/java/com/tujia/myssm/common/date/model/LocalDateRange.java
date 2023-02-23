@@ -3,6 +3,7 @@ package com.tujia.myssm.common.date.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+import com.tujia.myssm.api.diff.annotation.Atomic;
 import com.tujia.myssm.core.diff.annotation.Diff;
 import com.tujia.myssm.core.diff.format.LocalDateFormatter;
 import static com.tujia.myssm.utils.base.Symbol.UNDERLINE;
@@ -14,8 +15,10 @@ import static com.tujia.myssm.utils.base.Symbol.UNDERLINE;
  */
 public class LocalDateRange implements Serializable, Comparable<LocalDateRange> {
     private static final long serialVersionUID = 5669236618618467560L;
+    @Atomic
     @Diff(value = "st", valueFormatter = LocalDateFormatter.class)
     private LocalDate st;
+    @Atomic
     @Diff(value = "et", valueFormatter = LocalDateFormatter.class)
     private LocalDate et;
 
