@@ -6,11 +6,12 @@ import java.util.Date;
 import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.tujia.myssm.api.diff.annotation.Atomic;
+import com.tujia.myssm.api.diff.annotation.Diff;
+import com.tujia.myssm.api.diff.annotation.DiffIgnore;
 import com.tujia.myssm.api.enums.EnumOpType;
 import com.tujia.myssm.common.date.model.LocalDateRangeSet;
 import com.tujia.myssm.common.date.serializer.LocalDateRangeSetSerializer;
-import com.tujia.myssm.core.diff.annotation.Diff;
-import com.tujia.myssm.core.diff.annotation.DiffIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,6 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
+@Diff(value = "hds")
 public class HdsSaleBlacklist implements Serializable {
 
     private static final long serialVersionUID = -1513487314767475090L;
@@ -37,6 +39,7 @@ public class HdsSaleBlacklist implements Serializable {
     @Diff("信用免押金")
     private String saleChannel;
 
+    @Atomic
     @JsonSerialize(using = LocalDateRangeSetSerializer.Serializer.class)
     @JsonDeserialize(using = LocalDateRangeSetSerializer.Deserializer.class)
     private LocalDateRangeSet dateRanges;
@@ -53,5 +56,6 @@ public class HdsSaleBlacklist implements Serializable {
     @DiffIgnore
     private Date date;
 
+    @Atomic
     private List<LocalDateTime> timeList;
 }
