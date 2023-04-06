@@ -23,6 +23,7 @@ import com.alibaba.excel.event.AnalysisEventListener;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.tujia.framework.api.APIResponse;
+import com.tujia.myssm.api.model.CalGcModel;
 import com.tujia.myssm.api.model.OpLog;
 import com.tujia.myssm.api.model.OpLogDetail;
 import com.tujia.myssm.api.model.excel.SimpleExcelModel;
@@ -196,6 +197,13 @@ public class TestController extends BaseController {
 
         testTx.batchUpdate(opLogs);
 
+    }
+
+    @PostMapping(value = "calGc")
+    @ResponseBody
+    public CalGcModel calGC(@RequestBody CalGcModel calGcModel) {
+        calGcModel.cal();
+        return calGcModel;
     }
 
 }
