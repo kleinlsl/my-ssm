@@ -11,3 +11,4 @@ CREATE TABLE `activity_participant`
     PRIMARY KEY (`id`),
     UNIQUE KEY `unique_idx_activity_code_version` (`activity_code`,`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='活动参与房屋';
+
