@@ -1,7 +1,10 @@
 package com.tujia.myssm.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.Resource;
+
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -14,14 +17,12 @@ import com.tujia.myssm.service.ActivityParticipantService;
  * @author: songlinl
  * @create: 2021/08/02 14:18
  */
-@Service
-public class ActivityParticipantServiceImpl implements ActivityParticipantService {
+@Service public class ActivityParticipantServiceImpl implements ActivityParticipantService {
     private static final Logger logger = LoggerFactory.getLogger(ActivityParticipantServiceImpl.class);
 
     private final static Integer NUMBER_OF_VERSIONS = 5;
 
-    @Resource
-    private ActivityParticipantDao activityParticipantDao;
+    @Resource private ActivityParticipantDao activityParticipantDao;
 
     //    @Override
     //    public APIResponse<String> saveUpload(List<Long> unitIds) {
@@ -35,23 +36,19 @@ public class ActivityParticipantServiceImpl implements ActivityParticipantServic
     //        return APIResponse.returnFail(EnumErrorCode.Start.getCode(), "保存失败");
     //    }
 
-    @Override
-    public int add(ActivityParticipant pojo) {
+    @Override public int add(ActivityParticipant pojo) {
         return activityParticipantDao.insertSelective(pojo);
     }
 
-    @Override
-    public int updateStatusBatchByIds(int status, List<Integer> ids) {
+    @Override public int updateStatusBatchByIds(int status, List<Integer> ids) {
         return activityParticipantDao.updateStatusBatchByIds(status, ids);
     }
 
-    @Override
-    public ActivityParticipant queryByMd5(String md5) {
+    @Override public ActivityParticipant queryByMd5(String md5) {
         return activityParticipantDao.selectByMd5(md5);
     }
 
-    @Override
-    public int updateActivityCodeAndVersion(String uniqueCode, String activityCode) {
+    @Override public int updateActivityCodeAndVersion(String uniqueCode, String activityCode) {
         ActivityParticipant activityParticipant = activityParticipantDao.selectByMd5(uniqueCode);
         ActivityParticipant maxVersion = activityParticipantDao.selectMaxVersionByActivityCode(activityCode);
 
@@ -71,16 +68,14 @@ public class ActivityParticipantServiceImpl implements ActivityParticipantServic
         return activityParticipantDao.updateByPrimaryKeySelective(activityParticipant);
     }
 
-    @Override
-    public ActivityParticipant queryMaxVersionByActivityCode(String activityCode) {
+    @Override public ActivityParticipant queryMaxVersionByActivityCode(String activityCode) {
         if (StringUtils.isEmpty(activityCode)) {
             return null;
         }
         return activityParticipantDao.selectMaxVersionByActivityCodeWithBLOBs(activityCode);
     }
 
-    @Override
-    public List<ActivityParticipant> queryByActivityCode(String activityCode) {
+    @Override public List<ActivityParticipant> queryByActivityCode(String activityCode) {
         if (StringUtils.isEmpty(activityCode)) {
             return null;
         }
@@ -101,5 +96,12 @@ public class ActivityParticipantServiceImpl implements ActivityParticipantServic
     //
     //        return activityParticipant;
     //    }
+
+    public static void main(String[] args) {
+        String sql = "alter table tns_promotion.rebate_integral_record_%s add index idx_flag(`flag`);";
+        for (int i = 0; i < 16; i++) {
+            System.out.println(String.format(sql, i));
+        }
+    }
 
 }
