@@ -1,0 +1,60 @@
+<!-- src/main/webapp/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postman Clone</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- 引入 Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- 引入 axios 用于 HTTP 请求 -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<!-- src/main/webapp/index.html -->
+<div id="app">
+    <h1>Postman Clone</h1>
+
+    <!-- 域名选择器 -->
+    <div class="domain-selector">
+        <label for="domain">Target Domain:</label>
+        <select id="domain" v-model="selectedDomain">
+            <option v-for="domain in domains" :value="domain">{{ domain }}</option>
+        </select>
+    </div>
+
+    <!-- 请求配置区域 -->
+    <div class="request-config">
+        <div class="url-bar">
+            <select v-model="method">
+                <option v-for="m in methods" :value="m">{{ m }}</option>
+            </select>
+            <input v-model="endpoint" placeholder="Enter endpoint (e.g., /api/data)" />
+            <button @click="sendRequest">Send</button>
+        </div>
+
+        <!-- 其他部分保持不变 -->
+    </div>
+
+    <!-- 响应展示区域 -->
+    <!-- src/main/webapp/index.html -->
+    <div class="response-viewer">
+        <div v-if="loading" class="loading">Loading...</div>
+        <div v-else-if="error" class="error">{{ error }}</div>
+        <div v-else-if="response">
+            <div class="status-line">
+                Status: {{ response.status }} {{ response.statusText }}
+            </div>
+            <pre>{{ formattedResponse }}</pre>
+        </div>
+        <div v-else class="no-response">
+            No response received yet.
+        </div>
+    </div>
+</div>
+
+<!-- 引入自定义 Vue 逻辑 -->
+<script src="js/app.js"></script>
+</body>
+</html>
