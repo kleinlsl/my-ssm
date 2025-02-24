@@ -1,0 +1,73 @@
+//声明proto版本，不声明默认为proto2
+syntax = "proto3";
+package com.tujia.tns.price.api.bean.proto;
+// 城市报价接口返回数据
+message CityPrice {
+    // 城市id
+    int32 cityId = 1;
+    // 入店日期
+    string fromDate = 2;
+    // 离店日期
+    string toDate = 3;
+    // 房屋报价信息列表
+    repeated CityUnitPrice unitPrice = 4;
+}
+
+// 房屋报价数据(城市报价接口使用)
+message CityUnitPrice {
+    // 房屋id
+    int64 unitId = 1;
+    // 产品报价信息列表
+    repeated CityProductPrice productPrice = 2;
+}
+// 产品报价数据(城市报价接口使用)
+message CityProductPrice {
+    // 产品id
+    int64 productId = 1;
+    // 是否可订
+    bool canBooking = 2;
+    // 产品每日卖价总和,单位：分
+    int32 totalPrice = 3;
+    // 产品每日原价总和,单位：分
+    int32 totalOriginalPrice = 4;
+    // 营销活动列表，含优惠
+    repeated Activity activity = 5;
+    //产品类型（基础价 1、连住 2、活动 3 ）,enum类型
+    int32 productType = 6;
+    // 房费总价,单位：分
+    int32 totalRoomPrice = 7;
+    // 清洁费总价,单位：分
+    int32 totalCleaningFee = 8;
+    // 加人费总价,单位：分
+    int32 totalAddPeopleFee = 9;
+    // 取消规则
+    CancelRule cancelRule = 10;
+    // 早餐份数
+    int32 numberOfBreakfast = 11;
+
+}
+// 活动优惠
+message Activity {
+    // 活动id
+    int32 activityId = 1;
+    // 活动每日优惠总和,单位：分
+    int32 totalDiscount = 2;
+    // 立减返现类型,1-立减，2-返现,参考枚举com.tujia.tns.salespromotion.api.enums.EnumReturnCashType
+    int32 returnCashType = 3;
+}
+
+//取消规则
+message CancelRule {
+    // 能否取消
+    bool cancelAble = 1;
+    // 提前多少天可以免费取消
+    int32 preDay = 2;
+    // 取消扣款类型 按天or按比例
+    int32 fineType = 3;
+    // 取消扣款金额
+    string fineAmount = 4;
+    // 取消时间
+    int32 timePoint = 5;
+    // 免责取消
+    int32 cancelWithoutDuty = 6;
+}
