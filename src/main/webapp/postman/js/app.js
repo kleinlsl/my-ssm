@@ -1,6 +1,5 @@
-// src/main/webapp/js/app.js
+// src/main/webapp/postman/js/app.js
 const { createApp } = Vue;
-
 createApp({
     data() {
         return {
@@ -61,13 +60,21 @@ createApp({
                     headers['Cookie'] = this.getCookies();
                 }
 
-                const config = {
+                const body = {
                     method: this.method,
                     url: this.url,
                     params: this.buildParams(this.queryParams),
                     headers: headers,
                     data: this.body ? JSON.parse(this.body) : null
                 };
+                const config = {
+                    method: this.method,
+                    url: "/api/proxy",
+                    params: this.buildParams(this.queryParams),
+                    headers: headers,
+                    data: body
+                };
+
 
                 const res = await axios(config);
                 this.response = res; // 确保 response 被正确赋值

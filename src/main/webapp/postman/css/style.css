@@ -1,9 +1,9 @@
-/* src/main/webapp/css/style.css */
-/* src/main/webapp/css/style.css */
+/* src/main/webapp/postman/css/style.css */
+/* 样式保持不变 */
 .domain-selector {
     margin-bottom: 1rem;
 }
-/* src/main/webapp/css/style.css */
+
 .no-response {
     padding: 10px;
     background: #f4f4f4;
@@ -11,6 +11,7 @@
     color: #666;
     font-style: italic;
 }
+
 .domain-selector label {
     margin-right: 10px;
 }

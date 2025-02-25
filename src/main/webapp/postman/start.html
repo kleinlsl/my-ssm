@@ -1,4 +1,4 @@
-<!-- src/main/webapp/index.html -->
+<!-- src/main/webapp/postman/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Postman Clone</title>
     <link rel="stylesheet" href="css/style.css">
-    <!-- 引入 Vue 3 CDN -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <!-- 引入 axios 用于 HTTP 请求 -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
@@ -30,11 +28,46 @@
             <select v-model="method">
                 <option v-for="m in methods" :value="m">{{ m }}</option>
             </select>
-            <input v-model="endpoint" placeholder="Enter endpoint (e.g., /api/data)" />
+            <input v-model="endpoint" placeholder="Enter endpoint (e.g., /api/data)" disabled="true"/>
             <button @click="sendRequest">Send</button>
         </div>
 
-        <!-- 其他部分保持不变 -->
+        <!-- 参数选项卡 -->
+        <div class="tabs">
+            <button
+                    v-for="tab in tabs"
+                    :key="tab"
+                    :class="{ active: activeTab === tab }"
+                    @click="activeTab = tab"
+            >
+                {{ tab }}
+            </button>
+        </div>
+
+        <!-- Query Params -->
+        <div v-if="activeTab === 'Query Params'" class="params-editor">
+            <div v-for="(param, index) in queryParams" :key="index" class="param-row">
+                <input v-model="param.key" placeholder="Key" />
+                <input v-model="param.value" placeholder="Value" />
+                <button @click="removeParam(index)">×</button>
+            </div>
+            <button @click="addParam">+ Add</button>
+        </div>
+
+        <!-- Headers -->
+        <div v-if="activeTab === 'Headers'" class="params-editor">
+            <div v-for="(header, index) in headers" :key="index" class="param-row">
+                <input v-model="header.key" placeholder="Key" />
+                <input v-model="header.value" placeholder="Value" />
+                <button @click="removeHeader(index)">×</button>
+            </div>
+            <button @click="addHeader">+ Add</button>
+        </div>
+
+        <!-- Body -->
+        <div v-if="activeTab === 'Body'" class="body-editor">
+            <textarea v-model="body" placeholder="Enter request body (JSON)"></textarea>
+        </div>
     </div>
 
     <!-- 响应展示区域 -->
